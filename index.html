@@ -3,58 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Qadın Sağlamlığı</title>
+    <title>FeminaMind | Sİ Dəstək</title>
     <style>
-        :root { --p: #9b59b6; --s: #ff85a2; --g: #2ecc71; }
-        body { font-family: sans-serif; margin: 0; background: #fff5f7; color: #333; }
-        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 30px 30px; }
-        .container { padding: 20px; max-width: 500px; margin: auto; }
-        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
-        button { width: 100%; background: var(--s); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        #res, #aiRes { margin-top: 15px; display: none; padding: 15px; border-radius: 10px; background: #f9f9f9; border-left: 5px solid var(--p); }
+        :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #2d3436; }
+        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 45px 20px; text-align: center; border-radius: 0 0 40px 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .container { padding: 20px; max-width: 480px; margin: auto; }
+        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #f1f1f1; }
+        h3 { color: var(--p); margin-top: 0; font-size: 1.2rem; }
+        select, textarea { width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #eee; border-radius: 15px; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
+        button { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 17px; cursor: pointer; box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3); }
+        #aiRes { margin-top: 15px; padding: 15px; border-radius: 15px; background: #f9f0ff; border-left: 5px solid var(--p); display: none; font-size: 15px; line-height: 1.5; }
+        .quote-box { text-align: center; font-style: italic; color: #636e72; padding: 10px; font-size: 14px; }
     </style>
 </head>
 <body>
-    <header><h1>FeminaMind</h1><p>Sənin sağlamlıq rəhbərin</p></header>
-    <div class="container">
-        <div class="card">
-            <h3>Profilini Yaradın</h3>
-            <input type="number" id="age" placeholder="Yaş">
-            <select id="type">
-                <option value="teen">Gənc Qız</option>
-                <option value="mom">Yeni Ana</option>
-                <option value="pregnant">Hamilə Xanım</option>
-            </select>
-            <button onclick="calc()">Planımı Hazırla</button>
-            <div id="res"></div>
-        </div>
-        <div class="card" style="border: 2px solid gold;">
-            <h3>Sİ Köməkçi (Gece Dəstəyi)</h3>
-            <textarea id="aiIn" placeholder="Məs. Gecə çox acmışam, nə edim?"></textarea>
-            <button style="background: #2c3e50;" onclick="ask()">Sİ-dən Soruş</button>
-            <div id="aiRes"></div>
-        </div>
+
+<header>
+    <h1>FeminaMind</h1>
+    <p>Sənin Ağıllı Sağlamlıq Yolun</p>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h3>🎯 Fərdi Rejimin</h3>
+        <select id="type">
+            <option value="teen">🌸 Gənc Qızlar</option>
+            <option value="mom">🍼 Yeni Analar</option>
+            <option value="pregnant">🤰 Hamiləlik</option>
+        </select>
+        <button onclick="calc()">Planı Göster</button>
+        <div id="res" style="margin-top:15px; font-weight: 500; color: #444;"></div>
     </div>
-    <script>
-        function calc() {
-            let t = document.getElementById('type').value;
-            let r = document.getElementById('res');
-            r.style.display = "block";
-            if(t == 'mom') r.innerHTML = "🍼 <b>Ana üçün:</b> Südü artıran yulaf və bol su. Körpə ilə 20 dəqiqə yürüş.";
-            else if(t == 'teen') r.innerHTML = "🌸 <b>Gənc Qız:</b> Sağlam dəri üçün şəkəri azaldın. Bol tərəvəz və rəqs!";
-            else r.innerHTML = "🤰 <b>Hamilə:</b> Az-az, tez-tez qidalanın. Hamilə yoqası tövsiyədir.";
-        }
-        function ask() {
-            let i = document.getElementById('aiIn').value.toLowerCase();
-            let a = document.getElementById('aiRes');
-            a.style.display = "block"; a.innerHTML = "Sİ düşünür...";
-            setTimeout(() => {
-                if(i.includes("ac")) a.innerHTML = "💡 <b>Sİ:</b> Bir stəkan ilıq süd və ya 3 ədəd qoz ye. Tox tutacaq!";
-                else if(i.includes("şirin")) a.innerHTML = "💡 <b>Sİ:</b> Darçınlı alma dilimləri ye, şirin istəyini kəsəcək.";
-                else a.innerHTML = "💡 <b>Sİ:</b> Bol su iç və dərindən nəfəs al. Sən bacaracaqsan!";
-            }, 1000);
-        }
-    </script>
+
+    <div class="card" style="border-top: 4px solid var(--p);">
+        <h3>✨ Sİ Köməkçi (24/7)</h3>
+        <textarea id="aiIn" placeholder="Gecə acanda və ya şirin istəyəndə bura yaz..."></textarea>
+        <button style="background: #2d3436;" onclick="ask()">Sİ-dən Soruş</button>
+        <div id="aiRes"></div>
+    </div>
+
+    <div class="quote-box" id="quote">"Hər gün özün üçün etdiyin kiçik bir şey, gələcəkdə böyük dəyişiklik yaradır."</div>
+</div>
+
+<script>
+    function calc() {
+        let t = document.getElementById('type').value;
+        let r = document.getElementById('res');
+        if(t == 'mom') r.innerHTML = "✅ <b>Tövsiyə:</b> Süd verən zaman bol su və dəmirlə zəngin qidalar seç. Körpə yatanda sən də dincəl.";
+        else if(t == 'teen') r.innerHTML = "✅ <b>Tövsiyə:</b> Aktiv ol! Hər gün 15 dəqiqə sevdiyin musiqi ilə rəqs et və fast-food-u meyvə ilə əvəz et.";
+        else r.innerHTML = "✅ <b>Tövsiyə:</b> Yüngül yürüşlər və tənffüs məşqləri et. Qoz və fındıq kimi sağlam çərəzlər ye.";
+    }
+
+    function ask() {
+        let i = document.getElementById('aiIn').value.toLowerCase();
+        let a = document.getElementById('aiRes');
+        a.style.display = "block";
+        a.innerHTML = "Sİ düşünür... 🧠";
+        
+        setTimeout(() => {
+            if(i.includes("şokolad") || i.includes("şirin")) {
+                a.innerHTML = "🍐 <b>Sİ Cavabı:</b> Şirin istəyini kəsmək üçün 1 bardaq suya bir az darçın əlavə edib iç və ya bir neçə quru meyvə ye.";
+            } else if(i.includes("ac")) {
+                a.innerHTML = "🥗 <b>Sİ Cavabı:</b> Gecə aclığı üçün ən yaxşı seçim 1 fincan kefir və ya bir az ağ pendirdir. Mədəni yormaz.";
+            } else {
+                a.innerHTML = "✨ <b>Sİ Cavabı:</b> Sən özünə dəyər verdiyin üçün buradasan. İndi bir stəkan su iç və dərindən nəfəs al. Hər şey yaxşı olacaq.";
+            }
+        }, 1000);
+    }
+</script>
+
 </body>
 </html>
