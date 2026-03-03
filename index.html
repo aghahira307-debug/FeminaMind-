@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Premium</title>
+    <title>FeminaMind | Professional</title>
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); line-height: 1.6; }
@@ -11,13 +11,14 @@
         .logo-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid white; margin-bottom: 10px; object-fit: cover; background: white; }
         .container { padding: 15px; max-width: 600px; margin: auto; }
         .card { background: white; padding: 22px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #f1f1f1; }
-        h3 { color: var(--p); margin-top: 0; border-bottom: 2px solid #f9f0ff; padding-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        h3 { color: var(--p); margin-top: 0; border-bottom: 2px solid #f9f0ff; padding-bottom: 8px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         input, select, textarea { width: 100%; padding: 13px; margin: 8px 0; border: 2px solid #eee; border-radius: 15px; font-size: 15px; box-sizing: border-box; }
-        button { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3); }
-        .result-box { display: none; background: white; padding: 20px; border-radius: 25px; border-left: 10px solid var(--p); margin-top: 15px; }
-        .plan-block { background: #fdf0ff; padding: 15px; border-radius: 15px; margin-bottom: 12px; border-left: 4px solid var(--s); }
-        .allergy-alert { background: #fff5f5; border: 2px dashed #e74c3c; color: #c0392b; padding: 12px; border-radius: 15px; margin-bottom: 12px; font-weight: bold; }
+        button { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; }
+        
+        .result-box { display: none; background: white; padding: 25px; border-radius: 30px; border-top: 10px solid var(--p); margin-top: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .plan-section { background: #fef1f8; padding: 15px; border-radius: 15px; margin-bottom: 15px; border-left: 5px solid var(--s); }
+        .allergy-alert { background: #fff5f5; border: 2px dashed #e74c3c; color: #c0392b; padding: 15px; border-radius: 15px; margin-bottom: 15px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -25,65 +26,72 @@
 <header>
     <img src="Femina_20260303_032125_0000.png" alt="FeminaMind Logo" class="logo-img" onerror="this.style.display='none'">
     <h1>FeminaMind</h1>
-    <p>Sənin Fərdi Sağlamlıq Rəhbərin</p>
+    <p>Sənin Fərdi Sağlamlıq Kartın</p>
 </header>
 
 <div class="container">
     <div class="card">
-        <h3>🎯 Məlumatlarını Daxil Et</h3>
+        <h3>📊 Məlumatlarınızı Daxil Edin</h3>
         <div class="grid">
+            <input type="number" id="age" placeholder="Yaş">
+            <input type="number" id="height" placeholder="Boy (sm)">
             <input type="number" id="weight" placeholder="Çəki (kq)">
             <select id="status">
                 <option value="young">Gənc Qız</option>
+                <option value="teen">Yeniyetmə Qız</option>
                 <option value="pregnant">Hamilə</option>
-                <option value="mom">Yeni Ana</option>
-                <option value="milk">Süd Verən</option>
+                <option value="mom">Yeni Ana (Postpartum)</option>
+                <option value="milk">Süd Verən Ana</option>
             </select>
         </div>
         <select id="goal">
-            <option value="lose">Çəki Vermək</option>
-            <option value="gain">Çəki Almaq</option>
-            <option value="health">Sağlam Həyat</option>
-            <option value="milk_up">Süd Artırmaq</option>
+            <option value="lose">Sağlam Çəki Vermək</option>
+            <option value="gain">Çəki Artırmaq</option>
+            <option value="health">Ümumi Sağlamlıq</option>
+            <option value="milk_up">Laktasiya (Süd) Artımı</option>
         </select>
-        <textarea id="notes" placeholder="Allergiyalar və qeydlər (məs: yumurta allergiyası, kolit...)"></textarea>
-        <button onclick="generateProgram()">Fərdi Proqram Tərtib Et</button>
+        <textarea id="notes" placeholder="Allergiyalar və xüsusi qeydlər (məs: yumurta allergiyası, təzyiq, kolit...)"></textarea>
+        <button onclick="generate()">Proqramı Hazırla</button>
     </div>
 
-    <div id="programResult" class="result-box"></div>
+    <div id="res" class="result-box"></div>
 
     <div class="card">
-        <h3>🥗 Günlük Reseptlər</h3>
-        <p>• <b>Səhər:</b> Yulaf, darçın və 1 dilim alma.<br>
-        • <b>Nahar:</b> Toyuq filesi (buxarda) + bol göyərti salatı.<br>
-        • <b>Ara:</b> 1 fincan kefir və ya yaşıl çay.</p>
-        
-        <h3>🧘‍♀️ Sadə Məşqlər</h3>
-        <ul style="padding-left: 20px;">
-            <li>15 Dəqiqə Sürətli Yürüş</li>
-            <li>10 Dəfə Yüngül Squat (Çömbəlmə)</li>
-            <li>Divara söykənərək Plank (30 san)</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <h3>✨ Sİ Köməkçi (Premium)</h3>
-        <textarea id="aiIn" placeholder="Sualınızı yazın..."></textarea>
+        <h3>✨ Sİ Köməkçi</h3>
+        <textarea id="aiIn" placeholder="Sualınızı bura yazın..."></textarea>
         <button style="background: #2d3436;" onclick="ask()">Sİ-dən Soruş</button>
-        <p id="aiOut" style="display:none; padding:15px; background:#f4f1ff; border-radius:15px; margin-top:10px;"></p>
+        <p id="aiOut" style="display:none; margin-top:10px; padding:15px; background:#f4f1ff; border-radius:10px;"></p>
     </div>
 </div>
 
 <script>
-function generateProgram() {
-    const status = document.getElementById('status').value;
-    const goal = document.getElementById('goal').value;
-    const notes = document.getElementById('notes').value.toLowerCase();
-    const weight = document.getElementById('weight').value;
-    const res = document.getElementById('programResult');
-    
-    let plan = `<h2 style="color:var(--p); text-align:center;">Sizin Fərdi Sağlamlıq Kartınız</h2>`;
+    function generate() {
+        const age = document.getElementById('age').value;
+        const height = document.getElementById('height').value;
+        const weight = document.getElementById('weight').value;
+        const s = document.getElementById('status').value;
+        const g = document.getElementById('goal').value;
+        const n = document.getElementById('notes').value.toLowerCase();
+        const r = document.getElementById('res');
 
-    // ALLERGİYA BLOXU
-    if(notes.includes("yumurta") || notes.includes("süd") || notes.includes("allergiya")) {
-        plan += `<div class="allergy-alert">⚠️
+        if(!weight || !age) { alert("Lütfən yaş və çəki məlumatlarını daxil edin."); return; }
+
+        let html = "<h2 style='text-align:center; color:var(--p);'>✨ Sizin Fərdi Planınız</h2>";
+
+        // ALLERGİYA XƏBƏRDARLIĞI
+        if(n.includes("yumurta") || n.includes("süd") || n.includes("allergiya") || n.includes("qlüten")) {
+            html += "<div class='allergy-alert'>⚠️ ALLERGİYA DİQQƏT: ";
+            if(n.includes("yumurta")) html += "Yumurta allergiyası qeyd edilib. Səhər yeməyində alternativ seçin. ";
+            if(n.includes("süd")) html += "Süd yerinə badam və ya soya südü istifadə edin. ";
+            html += "</div>";
+        }
+
+        // QİDALANMA STRATEGİYASI
+        html += "<div class='plan-section'><h3>🍎 Qidalanma Strategiyası</h3>";
+        if(g === 'lose') html += "Gündəlik kalori miqdarını azaldın, zülal miqdarını artırın. Axşam saat 19:00-dan sonra yeməyi dayandırın.";
+        else if(g === 'milk_up') html += "Gündə ən az 3 litr su için. Menyuda yulaf, şüyüd və qoz mütləq olmalıdır.";
+        else html += "Kompleks karbohidratlara və sağlam yağlara (avokado, zeytun yağı) üstünlük verin.";
+        html += "</div>";
+
+        // GÜNLÜK RESEPTLƏR (Allergiya nəzarəti ilə)
+        let breakfast = n.includes("yumurta") ? "Yulaf sıyığı (su və ya bitki südü ilə) + meyvə." : "2 yumurta ağından tərəvəz
