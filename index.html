@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Fərdi Sağlamlıq</title>
+    <title>FeminaMind | Professional</title>
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #2d3436; }
         header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 30px 30px; }
         .container { padding: 15px; max-width: 600px; margin: auto; }
-        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); margin-bottom: 20px; }
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); margin-bottom: 20px; border: 1px solid #f1f1f1; }
         h3 { color: var(--p); margin-top: 0; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #f0f0f0; border-radius: 12px; font-size: 15px; box-sizing: border-box; }
-        button { width: 100%; background: var(--s); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; }
+        button { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { opacity: 0.9; }
         .result-box { display: none; background: white; padding: 20px; border-radius: 20px; border-left: 8px solid var(--p); margin-top: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .plan-block { background: #fef1f6; padding: 15px; border-radius: 12px; margin-bottom: 10px; }
-        .motivation { font-style: italic; text-align: center; padding: 10px; color: white; opacity: 0.9; }
+        .plan-block { background: #fef1f6; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--s); }
+        .motivation { font-style: italic; text-align: center; padding: 10px; color: white; font-weight: 500; }
     </style>
 </head>
 <body>
@@ -28,38 +30,57 @@
 <div class="container">
     <div class="card">
         <h3>📊 Məlumatlarını Daxil Et</h3>
-        <input type="number" id="weight" placeholder="Çəki (kq)">
-        <select id="status">
-            <option value="teen">Yeniyetmə/Gənc Qız</option>
-            <option value="pregnant">Hamilə</option>
-            <option value="mom">Yeni Ana</option>
-            <option value="milk">Süd Verən</option>
-        </select>
+        <div class="grid">
+            <input type="number" id="age" placeholder="Yaş">
+            <input type="number" id="weight" placeholder="Çəki (kq)">
+            <input type="number" id="height" placeholder="Boy (sm)">
+            <select id="status">
+                <option value="teen">Yeniyetmə</option>
+                <option value="young">Gənc Qız</option>
+                <option value="pregnant">Hamilə</option>
+                <option value="mom">Yeni Ana</option>
+                <option value="milk">Süd Verən</option>
+            </select>
+        </div>
         <select id="goal">
             <option value="health">Sağlam Həyat</option>
-            <option value="lose">Çəki Vermək</option>
-            <option value="gain">Çəki Almaq</option>
-            <option value="milk_up">Südü Artırmaq</option>
+            <option value="lose">Sağlam Arıqlama</option>
+            <option value="gain">Sağlam Çəki Alma</option>
+            <option value="milk_up">Süd Artırmaq</option>
         </select>
-        <textarea id="notes" placeholder="Xüsusi qeydlər (məs: kolit, təzyiq...)"></textarea>
-        <button onclick="generate()">Proqramı Hazırla</button>
+        <textarea id="notes" placeholder="Xüsusi qeydlər (məs: kolit, təzyiq, şəkər...)"></textarea>
+        <button onclick="generate()">Fərdi Proqramı Tərtib Et</button>
     </div>
 
     <div id="res" class="result-box"></div>
 
     <div class="card">
-        <h3>✨ Sİ Köməkçi (Limitli)</h3>
-        <p style="font-size: 12px; color: red;" id="limitText">Limit: 3/3</p>
-        <textarea id="aiIn" placeholder="Sualınızı yazın..."></textarea>
+        <h3>✨ Sİ Köməkçi (Premium)</h3>
+        <p style="font-size: 12px; color: #e74c3c; font-weight: bold;" id="limitText">Sual Limiti: 3/3</p>
+        <textarea id="aiIn" placeholder="Məsələn: Gecə şirniyyat istəyirəm, nə edim?"></textarea>
         <button style="background: #2d3436;" onclick="ask()">Sİ-dən Soruş</button>
-        <p id="aiOut" style="display:none; padding:10px; border-top:1px solid #eee;"></p>
+        <div id="aiOut" style="display:none; margin-top:15px; padding:15px; background:#f9f0ff; border-radius:12px; border-left: 4px solid var(--p);"></div>
+    </div>
+
+    <div class="card">
+        <h3>🥗 Günlük Reseptlər</h3>
+        <p>• <b>Səhər:</b> 2 yumurta, 1 dilim pendir, bol göyərti.</p>
+        <p>• <b>Nahar:</b> Buxarda balıq və ya toyuq + qara düyü.</p>
+        <p>• <b>Axşam:</b> Mövsüm tərəvəzlərindən hazırlanmış şorba.</p>
     </div>
 </div>
 
 <script>
-    const quotes = ["Özünə inanan hər şeyi bacarar! ✨", "Bu gün yeni bir başlanğıcdır. 🌸", "Sağlam bədən, xoşbəxt ruh! 💪"];
-    document.getElementById('quote').innerText = quotes[Math.floor(Math.random()*quotes.length)];
+    // Motivasiya bölməsi
+    const quotes = [
+        "Sən hər şeyin ən yaxşısına layiqsən! ✨",
+        "Kiçik addımlar böyük nəticələr doğurur. 🌸",
+        "Bədəninə yaxşı bax, o sənin yeganə evindir. 💪",
+        "Bu gün özün üçün bir yaxşılıq et. 💧"
+    ];
+    document.getElementById('quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
 
+    // Proqram tərtibi
     function generate() {
         const s = document.getElementById('status').value;
         const g = document.getElementById('goal').value;
@@ -67,86 +88,60 @@
         const w = document.getElementById('weight').value;
         const r = document.getElementById('res');
 
-        let html = "<h2>Sizin Fərdi Planınız</h2>";
+        let html = "<h2 style='text-align:center; color:var(--p);'>Sizin Fərdi Planınız</h2>";
 
-        // Qidalanma
+        // Qidalanma Planı
         html += "<div class='plan-block'><b>🍎 Qidalanma:</b><br>";
-        if(g === 'lose') html += "• Şəkəri və ağ çörəyi kəsin. Axşam 19:00-dan sonra yeməyin.<br>";
-        else if(g === 'milk_up') html += "• Bol maye, yulaf və şüyüd çayı südü artırmağa kömək edəcək.<br>";
-        else html += "• Hər öyündə bol tərəvəz və keyfiyyətli zülal (yumurta, ət) olsun.<br>";
+        if(g === 'lose') html += "- Kalorini azaldın, amma zülalı artırın. Axşam yeməyində yüngül salatlara üstünlük verin.<br>";
+        else if(g === 'milk_up') html += "- Gündəlik 3 litr su, yulaf və şüyüd mütləqdir. Kəskin pəhriz etməyin.<br>";
+        else if(g === 'gain') html += "- Faydalı yağlar (qoz, fındıq, zeytun yağı) və kompleks karbohidratları artırın.<br>";
+        else html += "- Mövsümi qidalanın və işlənmiş qidalardan uzaq durun.<br>";
         
-        if(n.includes("kolit")) html += "<br><i style='color:red'>⚠️ Kolit üçün: Çiy meyvə-tərəvəzi azaldın, bişmişə üstünlük verin.</i><br>";
-        if(n.includes("təzyiq")) html += "<br><i style='color:red'>⚠️ Təzyiq üçün: Duzu və kofeni azaldın.</i>";
+        if(n.includes("kolit")) html += "<br>⚠️ <b>Kolit üçün:</b> Çiy tərəvəz və meyvədən qaçın. Hər şeyi bişmiş və ya püre halında yeyin.<br>";
+        if(n.includes("təzyiq")) html += "<br>⚠️ <b>Təzyiq üçün:</b> Duzu tamamilə azaldın, kofeinli içkiləri məhdudlaşdırın.<br>";
         html += "</div>";
 
-        // Məşq
+        // Məşq Planı
         html += "<div class='plan-block'><b>🧘‍♀️ Aktivlik:</b><br>";
-        if(s === 'pregnant') html += "• 15 dəqiqə yüngül hamiləlik yoqası və yavaş gəzinti.";
-        else html += "• Gündə 8.000 addım və evdə 10 dəqiqəlik dartınma hərəkətləri.";
+        if(s === 'pregnant') html += "- Yüngül yürüş və nəfəs məşqləri. Ağır idman etmək olmaz.";
+        else if(s === 'mom' || s === 'milk') html += "- Pelvik bölgə məşqləri və gündə 30 dəqiqə körpə ilə yürüş.";
+        else html += "- Həftədə 3 dəfə 40 dəqiqəlik aktiv idman (qaçış, rəqs, fitnes).";
         html += "</div>";
 
-        // Su
+        // Su Hesabı
         let water = (w * 0.035).toFixed(1);
-        html += `<div style="text-align:center; font-weight:bold;">💧 Günlük su tələbatınız: ${water || 2} Litr</div>`;
+        html += `<div style="text-align:center; font-weight:bold; color:var(--p);">💧 Sizin günlük su tələbatınız: ${water || 2} Litr</div>`;
 
         r.innerHTML = html;
         r.style.display = "block";
-        r.scrollIntoView({behavior: "smooth"});
+        r.scrollIntoView({ behavior: 'smooth' });
     }
 
-    let L = 3;
+    // Sİ Sual-Cavab
+    let limit = 3;
     function ask() {
-        if(L <= 0) { alert("Limit bitdi!"); return; }
-        L--;
-        document.getElementById('limitText').innerText = `Limit: ${L}/3`;
-        const i = document.getElementById('aiIn').value.toLowerCase();
-        const o = document.getElementById('aiOut');
-        o.style.display = "block";
-        o.innerText = "Düşünürəm...";
+        const out = document.getElementById('aiOut');
+        const input = document.getElementById('aiIn').value.toLowerCase();
+        
+        if(limit <= 0) {
+            alert("Sual limitiniz bitdi. Premium abunəlik tələb olunur!");
+            return;
+        }
+
+        limit--;
+        document.getElementById('limitText').innerText = `Sual Limiti: ${limit}/3`;
+        out.style.display = "block";
+        out.innerHTML = "Düşünürəm... 🤔";
+
         setTimeout(() => {
-            if(i.includes("şirin")) o.innerHTML = "💡 <b>Sİ:</b> Bir stəkan suya darçın töküb için, şirin istəyini kəsəcək.";
-            else if(i.includes("ac")) o.innerHTML = "💡 <b>Sİ:</b> Bir neçə ədəd çiy badam və ya bir fincan kefir aclığı yatıracaq.";
-            else o.innerHTML = "💡 <b>Sİ:</b> Bu mövzuda mütləq su içməyi və yuxu rejiminə diqqət etməyi unutmayın.";
-        }, 1000);
-    }
-</script>
-
-</body>
-</html>
-
-    <div class="card">
-        <h3>🥗 Günlük Reseptlər</h3>
-        <div class="recipe-item">🍵 <b>Səhər:</b> Yulaf, darçın və 1 dilim alma.</div>
-        <div class="recipe-item">🍲 <b>Nahar:</b> Toyuq filesi (buxarda) + bol göyərti salatı.</div>
-        <div class="recipe-item">🥤 <b>Ara:</b> 1 fincan kefir və ya yaşıl çay.</div>
-    </div>
-
-    <div class="card">
-        <h3>🧘‍♀️ Sadə Məşqlər</h3>
-        <div class="fit-item">🔹 15 Dəqiqə Sürətli Yürüş</div>
-        <div class="fit-item">🔹 10 Dəfə Yüngül Squat (Çömçəlmə)</div>
-        <div class="fit-item">🔹 Divara söykənərək Plank (30 san)</div>
-    </div>
-</div>
-
-<script>
-    // Motivasiya Cümlələri
-    const quotes = [
-        "Sən bu gün özünün ən yaxşı versiyası olmağa bir addım daha yaxınsan! 🌟",
-        "Bədənin sənin məbədindir, ona yaxşı bax. 🧘‍♀️",
-        "Uğur hər gün atılan kiçik addımların cəmidir. ✨",
-        "İradən sənin ən böyük gücündür. 💪",
-        "Bu gün özünə bir yaxşılıq et: Bol su iç! 💧"
-    ];
-    document.getElementById('dailyQuote').innerText = quotes[Math.floor(
-            if(i.includes("şokolad") || i.includes("şirin")) {
-                a.innerHTML = "🍐 <b>Sİ Cavabı:</b> Şirin istəyini kəsmək üçün 1 bardaq suya bir az darçın əlavə edib iç və ya bir neçə quru meyvə ye.";
-            } else if(i.includes("ac")) {
-                a.innerHTML = "🥗 <b>Sİ Cavabı:</b> Gecə aclığı üçün ən yaxşı seçim 1 fincan kefir və ya bir az ağ pendirdir. Mədəni yormaz.";
+            if(input.includes("şirin") || input.includes("şokolad")) {
+                out.innerHTML = "💡 <b>Sİ:</b> Şirin istəyini kəsmək üçün 1 bardaq suya darçın əlavə edib için və ya 2 ədəd xurma yeyin.";
+            } else if(input.includes("ac") || input.includes("yemək")) {
+                out.innerHTML = "💡 <b>Sİ:</b> Gecə aclığı üçün ən yaxşı seçim 1 fincan kefir və ya bir az ağ pendirdir.";
             } else {
-                a.innerHTML = "✨ <b>Sİ Cavabı:</b> Sən özünə dəyər verdiyin üçün buradasan. İndi bir stəkan su iç və dərindən nəfəs al. Hər şey yaxşı olacaq.";
+                out.innerHTML = "💡 <b>Sİ:</b> Bu mövzuda mütləq bol su içməyi və stresdən uzaq durmağı tövsiyə edirəm.";
             }
-        }, 1000);
+        }, 1200);
     }
 </script>
 
