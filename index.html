@@ -14,9 +14,9 @@
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #f0f0f0; border-radius: 12px; font-size: 15px; box-sizing: border-box; }
         button { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        button:hover { opacity: 0.9; }
         .result-box { display: none; background: white; padding: 20px; border-radius: 20px; border-left: 8px solid var(--p); margin-top: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         .plan-block { background: #fef1f6; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--s); }
+        .allergy-alert { background: #fff5f5; border: 2px dashed #e74c3c; color: #c0392b; padding: 10px; border-radius: 10px; margin-bottom: 10px; font-weight: bold; }
         .motivation { font-style: italic; text-align: center; padding: 10px; color: white; font-weight: 500; }
     </style>
 </head>
@@ -48,8 +48,8 @@
             <option value="gain">Sağlam Çəki Alma</option>
             <option value="milk_up">Süd Artırmaq</option>
         </select>
-        <textarea id="notes" placeholder="Xüsusi qeydlər (məs: kolit, təzyiq, şəkər...)"></textarea>
-        <button onclick="generate()">Fərdi Proqramı Tərtib Et</button>
+        <textarea id="notes" placeholder="Xəstəlik və ya allergiyalar (məs: süd allergiyası, qlüten, kolit, təzyiq...)"></textarea>
+        <button onclick="generate()">Fərdi Proqram və Reseptləri Hazırla</button>
     </div>
 
     <div id="res" class="result-box"></div>
@@ -61,26 +61,12 @@
         <button style="background: #2d3436;" onclick="ask()">Sİ-dən Soruş</button>
         <div id="aiOut" style="display:none; margin-top:15px; padding:15px; background:#f9f0ff; border-radius:12px; border-left: 4px solid var(--p);"></div>
     </div>
-
-    <div class="card">
-        <h3>🥗 Günlük Reseptlər</h3>
-        <p>• <b>Səhər:</b> 2 yumurta, 1 dilim pendir, bol göyərti.</p>
-        <p>• <b>Nahar:</b> Buxarda balıq və ya toyuq + qara düyü.</p>
-        <p>• <b>Axşam:</b> Mövsüm tərəvəzlərindən hazırlanmış şorba.</p>
-    </div>
 </div>
 
 <script>
-    // Motivasiya bölməsi
-    const quotes = [
-        "Sən hər şeyin ən yaxşısına layiqsən! ✨",
-        "Kiçik addımlar böyük nəticələr doğurur. 🌸",
-        "Bədəninə yaxşı bax, o sənin yeganə evindir. 💪",
-        "Bu gün özün üçün bir yaxşılıq et. 💧"
-    ];
+    const quotes = ["Sən hər şeyin ən yaxşısına layiqsən! ✨", "Kiçik addımlar böyük nəticələr doğurur. 🌸", "Bədəninə yaxşı bax, o sənin yeganə evindir. 💪"];
     document.getElementById('quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
 
-    // Proqram tərtibi
     function generate() {
         const s = document.getElementById('status').value;
         const g = document.getElementById('goal').value;
@@ -88,62 +74,66 @@
         const w = document.getElementById('weight').value;
         const r = document.getElementById('res');
 
-        let html = "<h2 style='text-align:center; color:var(--p);'>Sizin Fərdi Planınız</h2>";
+        let html = "<h2 style='text-align:center; color:var(--p);'>Sizin Fərdi Kartınız</h2>";
 
-        // Qidalanma Planı
-        html += "<div class='plan-block'><b>🍎 Qidalanma:</b><br>";
-        if(g === 'lose') html += "- Kalorini azaldın, amma zülalı artırın. Axşam yeməyində yüngül salatlara üstünlük verin.<br>";
-        else if(g === 'milk_up') html += "- Gündəlik 3 litr su, yulaf və şüyüd mütləqdir. Kəskin pəhriz etməyin.<br>";
-        else if(g === 'gain') html += "- Faydalı yağlar (qoz, fındıq, zeytun yağı) və kompleks karbohidratları artırın.<br>";
-        else html += "- Mövsümi qidalanın və işlənmiş qidalardan uzaq durun.<br>";
+        // 1. ALLERGİYA VƏ XƏSTƏLİK XƏBƏRDARLIĞI
+        if(n.includes("allergiya") || n.includes("qlüten") || n.includes("süd") || n.includes("fındıq") || n.includes("kolit") || n.includes("təzyiq")) {
+            html += "<div class='allergy-alert'>⚠️ Diqqət: ";
+            if(n.includes("süd")) html += "Süd məhsullarını bitki mənşəli (badam, soya) süd ilə əvəz edin. ";
+            if(n.includes("qlüten")) html += "Buğda unundan uzaq durun, qarabaşaq və ya düyü unundan istifadə edin. ";
+            if(n.includes("kolit")) html += "Çiy tərəvəzləri buxarda bişmişlərlə əvəz edin. ";
+            if(n.includes("təzyiq")) html += "Duz və turşudan qaçın. ";
+            html += "</div>";
+        }
+
+        // 2. FƏRDİ QİDALANMA VƏ RESEPTLƏR
+        html += "<div class='plan-block'><h3>🥗 Günlük Reseptlər (" + (g === 'lose' ? 'Arıqlama' : g === 'milk_up' ? 'Süd Artırma' : 'Sağlamlıq') + ")</h3>";
         
-        if(n.includes("kolit")) html += "<br>⚠️ <b>Kolit üçün:</b> Çiy tərəvəz və meyvədən qaçın. Hər şeyi bişmiş və ya püre halında yeyin.<br>";
-        if(n.includes("təzyiq")) html += "<br>⚠️ <b>Təzyiq üçün:</b> Duzu tamamilə azaldın, kofeinli içkiləri məhdudlaşdırın.<br>";
+        if(g === 'lose') {
+            html += "• <b>Səhər:</b> 2 yumurta ağından omlet + bol şüyüd və cəfəri.<br>";
+            html += "• <b>Nahar:</b> 150q Toyuq filesi (ızgara) + Yaşıl salat (limonlu).<br>";
+            html += "• <b>Axşam:</b> Balqabaq şorbası və ya 1 fincan qatıq.<br>";
+        } else if(g === 'milk_up') {
+            html += "• <b>Səhər:</b> Yulaf sıyığı (badam südü ilə) + 2 ədəd qoz.<br>";
+            html += "• <b>Nahar:</b> Tərəvəzli balıq buğlaması + 1 fincan razyana çayı.<br>";
+            html += "• <b>Axşam:</b> Mərci şorbası + bol dərəotu.<br>";
+        } else {
+            html += "• <b>Səhər:</b> Tam taxıllı çörək + 1 dilim ağ pendir + 5 ədəd zeytun.<br>";
+            html += "• <b>Nahar:</b> Ətli tərəvəz yeməyi + az miqdarda qara düyü.<br>";
+            html += "• <b>Axşam:</b> Qaynadılmış tərəvəzlər + az yağlı qatıq.<br>";
+        }
         html += "</div>";
 
-        // Məşq Planı
-        html += "<div class='plan-block'><b>🧘‍♀️ Aktivlik:</b><br>";
-        if(s === 'pregnant') html += "- Yüngül yürüş və nəfəs məşqləri. Ağır idman etmək olmaz.";
-        else if(s === 'mom' || s === 'milk') html += "- Pelvik bölgə məşqləri və gündə 30 dəqiqə körpə ilə yürüş.";
-        else html += "- Həftədə 3 dəfə 40 dəqiqəlik aktiv idman (qaçış, rəqs, fitnes).";
+        // 3. AKTİVLİK PLANI
+        html += "<div class='plan-block'><h3>🧘‍♀️ Aktivlik Planı</h3>";
+        if(s === 'pregnant') html += "• Hamiləlik yoqası (10 dəq) + Sakit gəzinti.";
+        else if(s === 'mom') html += "• Qarın əzələlərini bərpa edən yüngül gimnastika.";
+        else html += "• 30 dəqiqə kardio və ya 10.000 addım.";
         html += "</div>";
 
-        // Su Hesabı
+        // 4. SU HESABI
         let water = (w * 0.035).toFixed(1);
-        html += `<div style="text-align:center; font-weight:bold; color:var(--p);">💧 Sizin günlük su tələbatınız: ${water || 2} Litr</div>`;
+        html += `<div style="text-align:center; font-weight:bold; color:var(--p); font-size:18px;">💧 Günlük su tələbatınız: ${water || 2} Litr</div>`;
 
         r.innerHTML = html;
         r.style.display = "block";
         r.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Sİ Sual-Cavab
     let limit = 3;
     function ask() {
         const out = document.getElementById('aiOut');
         const input = document.getElementById('aiIn').value.toLowerCase();
-        
-        if(limit <= 0) {
-            alert("Sual limitiniz bitdi. Premium abunəlik tələb olunur!");
-            return;
-        }
-
+        if(limit <= 0) { alert("Limit bitdi!"); return; }
         limit--;
         document.getElementById('limitText').innerText = `Sual Limiti: ${limit}/3`;
-        out.style.display = "block";
-        out.innerHTML = "Düşünürəm... 🤔";
-
+        out.style.display = "block"; out.innerHTML = "Düşünürəm...";
         setTimeout(() => {
-            if(input.includes("şirin") || input.includes("şokolad")) {
-                out.innerHTML = "💡 <b>Sİ:</b> Şirin istəyini kəsmək üçün 1 bardaq suya darçın əlavə edib için və ya 2 ədəd xurma yeyin.";
-            } else if(input.includes("ac") || input.includes("yemək")) {
-                out.innerHTML = "💡 <b>Sİ:</b> Gecə aclığı üçün ən yaxşı seçim 1 fincan kefir və ya bir az ağ pendirdir.";
-            } else {
-                out.innerHTML = "💡 <b>Sİ:</b> Bu mövzuda mütləq bol su içməyi və stresdən uzaq durmağı tövsiyə edirəm.";
-            }
-        }, 1200);
+            if(input.includes("şirin")) out.innerHTML = "💡 <b>Sİ:</b> 1 dilim alma üzərinə darçın səpib ye.";
+            else if(input.includes("ac")) out.innerHTML = "💡 <b>Sİ:</b> 1 stəkan ilıq su iç və 3 ədəd badam ye.";
+            else out.innerHTML = "💡 <b>Sİ:</b> Bu mövzuda ən yaxşısı dincəlmək və bol su içməkdir.";
+        }, 1000);
     }
 </script>
-
 </body>
 </html>
