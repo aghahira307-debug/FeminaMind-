@@ -7,26 +7,120 @@
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); }
-        
         header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 30px 20px; text-align: center; border-radius: 0 0 40px 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .logo-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid white; margin-bottom: 10px; object-fit: cover; background: white; }
-        
         .container { padding: 15px; max-width: 600px; margin: auto; }
         .card { background: white; padding: 22px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #f1f1f1; }
         h3 { color: var(--p); margin-top: 0; font-size: 1.2rem; border-bottom: 2px solid #f9f0ff; padding-bottom: 8px; }
-        
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         input, select, textarea { width: 100%; padding: 13px; margin: 8px 0; border: 2px solid #eee; border-radius: 15px; font-size: 15px; box-sizing: border-box; }
-        
         button { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3); }
         button:hover { transform: scale(1.02); }
-
         .result-box { display: none; background: white; padding: 20px; border-radius: 25px; border-left: 10px solid var(--p); margin-top: 15px; animation: slideUp 0.4s ease; }
         .plan-section { background: #fdf0ff; padding: 15px; border-radius: 15px; margin-bottom: 12px; border-left: 4px solid var(--s); }
         .allergy-alert { background: #fff5f5; border: 2px dashed #e74c3c; color: #c0392b; padding: 12px; border-radius: 15px; margin-bottom: 12px; font-weight: 600; }
-
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .motivation { font-style: italic; font-size: 14px; margin-top: 8px; }
     </style>
 </head>
 <body>
+
+<header>
+    <img src="Femina_20260303_032125_0000.png" alt="FeminaMind Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/100?text=Logo'">
+    <h1>FeminaMind</h1>
+    <div id="quote" class="motivation">Yüklənir...</div>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h3>🎯 Analiz və Rejim</h3>
+        <div class="grid">
+            <input type="number" id="age" placeholder="Yaş">
+            <input type="number" id="weight" placeholder="Çəki (kq)">
+            <input type="number" id="height" placeholder="Boy (sm)">
+            <select id="status">
+                <option value="teen">Yeniyetmə Qız</option>
+                <option value="young">Gənc Qız</option>
+                <option value="pregnant">Hamiləlik</option>
+                <option value="mom">Yeni Ana</option>
+                <option value="milk">Süd Verən Ana</option>
+            </select>
+        </div>
+        <select id="goal">
+            <option value="health">Sağlam Həyat</option>
+            <option value="lose">Çəki Vermək</option>
+            <option value="gain">Çəki Almaq</option>
+            <option value="milk_up">Südü Artırmaq</option>
+        </select>
+        <textarea id="notes" placeholder="Allergiyalar və qeydlər (məs: süd allergiyası, kolit...)"></textarea>
+        <button onclick="generate()">Proqramı Hazırla</button>
+    </div>
+
+    <div id="res" class="result-box"></div>
+
+    <div class="card">
+        <h3>✨ Sİ Köməkçi (Limitli)</h3>
+        <p style="font-size: 12px; color: #e74c3c;" id="limitText">Limit: 3/3</p>
+        <textarea id="aiIn" placeholder="Sİ-dən soruş..."></textarea>
+        <button style="background: #2d3436;" onclick="ask()">Soruş</button>
+        <div id="aiOut" style="display:none; margin-top:15px; padding:15px; background:#f4f1ff; border-radius:15px;"></div>
+    </div>
+</div>
+
+<script>
+    const quotes = ["Sən hər şeyin ən yaxşısına layiqsən! ✨", "Kiçik addımlar böyük nəticələr doğurur. 🌸", "Bədəninə yaxşı bax, o sənin evindir. 💪"];
+    document.getElementById('quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+    function generate() {
+        const s = document.getElementById('status').value;
+        const g = document.getElementById('goal').value;
+        const n = document.getElementById('notes').value.toLowerCase();
+        const w = document.getElementById('weight').value;
+        const r = document.getElementById('res');
+
+        let html = "<h2 style='text-align:center; color:var(--p);'>Fərdi Sağlamlıq Planınız</h2>";
+
+        if(n.includes("allergiya") || n.includes("süd") || n.includes("qlüten") || n.includes("fındıq")) {
+            html += "<div class='allergy-alert'>⚠️ Allergiya Xəbərdarlığı: ";
+            if(n.includes("süd")) html += "Süd məhsullarını kəsin, badam südü seçin. ";
+            if(n.includes("qlüten")) html += "Qlüteniz qidalar istifadə edin. ";
+            html += "</div>";
+        }
+
+        html += "<div class='plan-section'><h3>🥗 Günlük Menyu</h3>";
+        if(g === 'lose') html += "• <b>Səhər:</b> 2 yumurta ağından omlet.<br>• <b>Nahar:</b> Toyuq filesi + bol salat.<br>• <b>Axşam:</b> Tərəvəz şorbası.";
+        else if(g === 'milk_up') html += "• <b>Səhər:</b> Yulaf sıyığı + qoz.<br>• <b>Nahar:</b> Ətli mərci + razyana çayı.<br>• <b>Axşam:</b> Dərəotu ilə qatıq.";
+        else html += "• <b>Səhər:</b> Pendir, zeytun, avokado.<br>• <b>Nahar:</b> Balıq və ya ət + bulqur.<br>• <b>Axşam:</b> Zeytunyağlı tərəvəz yeməyi.";
+        html += "</div>";
+
+        html += "<div class='plan-section'><h3>🧘‍♀️ Aktivlik</h3>";
+        if(s === 'pregnant') html += "• 20 dəqiqə sakit gəzinti + nəfəs məşqləri.";
+        else if(s === 'mom' || s === 'milk') html += "• Çanaq dibi əzələ məşqləri və gəzinti.";
+        else html += "• 30 dəqiqə aktiv idman və ya 8000+ addım.";
+        html += "</div>";
+
+        html += "<div class='plan-section'><h3>😴 Yuxu Rejimi</h3>";
+        if(s === 'mom' || s === 'milk') html += "• Körpə yatanda siz də 20 dəqiqə dincəlin.";
+        else html += "• Saat 23:00-da yuxuya keçin, minimum 8 saat dincəlin.";
+        html += "</div>";
+
+        let water = (w * 0.035).toFixed(1);
+        html += `<div style="text-align:center; font-weight:bold; color:var(--p); font-size:18px;">💧 Günlük Su Hədəfi: ${water || 2} Litr</div>`;
+
+        r.innerHTML = html;
+        r.style.display = "block";
+        r.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    let limit = 3;
+    function ask() {
+        const out = document.getElementById('aiOut');
+        if(limit <= 0) { alert("Limit bitdi!"); return; }
+        limit--;
+        document.getElementById('limitText').innerText = `Limit: ${limit}/3`;
+        out.style.display = "block"; out.innerHTML = "Sİ düşünür... ✨";
+        setTimeout(() => { out.innerHTML = "💡 <b>Sİ:</b> Su içmək və 5 dəqiqəlik meditasiya aclığı və stresi yatıracaq. Sən güclüsən!"; }, 1200);
+    }
+</script>
+</body>
+</html>
