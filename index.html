@@ -3,40 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Ağıllı Sistem</title>
+    <title>FeminaMind | Premium Sistem</title>
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); line-height: 1.6; }
         
-        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 35px 20px; text-align: center; border-radius: 0 0 40px 40px; }
-        .logo-img { width: 85px; height: 85px; border-radius: 50%; border: 3px solid white; margin-bottom: 8px; object-fit: cover; background: white; }
-        .slogan { font-size: 15px; opacity: 0.95; margin-top: 5px; font-weight: 500; }
-        .motivation-box { font-style: italic; font-size: 14px; margin-top: 12px; background: rgba(255,255,255,0.25); padding: 8px 18px; border-radius: 25px; display: inline-block; }
+        /* Header Dizaynı */
+        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 50px 50px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .logo-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid white; margin-bottom: 10px; object-fit: cover; background: white; }
+        .slogan { font-size: 16px; font-weight: 500; margin-top: 5px; opacity: 0.9; }
+        .motivation-box { font-style: italic; font-size: 14px; margin-top: 15px; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 30px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); }
         
-        .container { padding: 15px; max-width: 600px; margin: auto; }
-        .card { background: white; padding: 22px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #f1f1f1; }
-        h3 { color: var(--p); margin-top: 0; border-bottom: 2px solid #f9f0ff; padding-bottom: 8px; font-size: 1.1rem; }
+        .container { padding: 20px; max-width: 600px; margin: auto; }
+        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 25px; border: 1px solid #f0f0f0; }
+        h3 { color: var(--p); margin-top: 0; border-bottom: 2px solid #f9f0ff; padding-bottom: 10px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
         
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        input, select, textarea { width: 100%; padding: 13px; margin: 8px 0; border: 2px solid #eee; border-radius: 15px; font-size: 15px; box-sizing: border-box; outline: none; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        input, select, textarea { width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #f0f0f0; border-radius: 18px; font-size: 15px; box-sizing: border-box; outline: none; transition: 0.3s; background: #fafafa; }
+        input:focus, select:focus, textarea:focus { border-color: var(--s); background: white; }
         
-        button { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3); }
-        button:active { transform: scale(0.98); }
+        button { width: 100%; background: var(--s); color: white; border: none; padding: 18px; border-radius: 18px; font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s; box-shadow: 0 8px 20px rgba(253, 121, 168, 0.3); }
+        button:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(253, 121, 168, 0.4); }
+        button:active { transform: scale(0.97); }
         
-        .result-box { display: none; background: white; padding: 25px; border-radius: 30px; border-left: 10px solid var(--p); margin-top: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
-        .plan-section { background: #fef1f8; padding: 15px; border-radius: 15px; margin-bottom: 15px; border-left: 5px solid var(--s); }
-        .allergy-alert { background: #fff5f5; border: 2px dashed #e74c3c; color: #c0392b; padding: 12px; border-radius: 15px; margin-bottom: 12px; font-weight: bold; }
+        /* Nəticə Bloqları */
+        .result-box { display: none; background: white; padding: 25px; border-radius: 35px; border-top: 12px solid var(--p); margin-top: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); animation: slideIn 0.6s ease-out; }
+        .plan-item { background: #fdf2f9; padding: 18px; border-radius: 20px; margin-bottom: 15px; border-left: 6px solid var(--s); }
+        .allergy-tag { background: #fff1f0; border: 2px dashed #ff4d4f; color: #cf1322; padding: 15px; border-radius: 20px; margin-bottom: 15px; font-weight: bold; }
         
-        #aiOut { display: none; margin-top: 15px; padding: 15px; background: #f4f1ff; border-radius: 15px; border-left: 5px solid var(--p); font-size: 14px; }
+        /* Sİ Cavab Sahəsi */
+        #aiOut { display: none; margin-top: 15px; padding: 18px; background: #f4f1ff; border-radius: 20px; border: 1px solid var(--p); color: var(--dark); font-size: 14px; position: relative; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <header>
-    <img src="Femina_20260303_032125_0000.png" alt="Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/100?text=Logo'">
-    <h1 style="margin:0;">FeminaMind</h1>
+    <img src="Femina_20260303_032125_0000.png" alt="FeminaMind Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/100?text=FM'">
+    <h1 style="margin:0; font-size: 2.2rem; letter-spacing: -1px;">FeminaMind</h1>
     <div class="slogan">Ağıllı qadınlar üçün ağıllı sistem</div>
-    <div id="motivation" class="motivation-box">Yüklənir...</div>
+    <div id="motivation" class="motivation-box">Sən möhtəşəmsən! ✨</div>
 </header>
 
 <div class="container">
@@ -58,67 +65,86 @@
             <option value="lose">Sağlam Çəki Vermək</option>
             <option value="gain">Çəki Artırmaq</option>
             <option value="health">Ümumi Sağlamlıq</option>
-            <option value="milk_up">Süd Artımı (Laktasiya)</option>
+            <option value="milk_up">Laktasiya (Süd) Artımı</option>
         </select>
-        <textarea id="notes" placeholder="Allergiyalar və ya xüsusi qeydlər..."></textarea>
-        <button id="mainBtn">Proqramı Hazırla</button>
+        <textarea id="notes" placeholder="Xüsusi qeydlər, allergiyalar və ya xəstəliklər..."></textarea>
+        <button id="calcBtn">Proqramı Hazırla</button>
     </div>
 
     <div id="res" class="result-box"></div>
 
-    <div class="card" id="aiCard">
-        <h3>✨ Sİ Köməkçi</h3>
-        <textarea id="aiIn" placeholder="Sualınızı yazın..."></textarea>
-        <button style="background: #2d3436;" id="aiBtn">Soruş</button>
+    <div class="card">
+        <h3>✨ Sİ Köməkçi (Premium)</h3>
+        <textarea id="aiIn" placeholder="Sualınızı bura yazın (məs: 'Aclıq hiss edəndə nə edim?')"></textarea>
+        <button style="background: var(--dark);" id="aiBtn">Soruş</button>
         <div id="aiOut"></div>
     </div>
 </div>
 
 <script>
-    // 1. Motivasiya Cümlələri
+    // Motivasiya Sistemi
     const quotes = [
         "Bu gün özün üçün bir yaxşılıq et! ✨",
-        "Sənin gücün iradəndədir. 🌸",
         "Hər kiçik addım böyük nəticəyə aparır. 💪",
-        "Sən hər şeyin ən yaxşısına layiqsən! ❤️"
+        "Sən hər şeyin ən yaxşısına layiqsən! ❤️",
+        "Bədəninə yaxşı bax, o sənin tək evindir. 🌿",
+        "Sənin gücün sənin iradəndədir! 🌸"
     ];
-    document.getElementById('motivation').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+    setInterval(() => {
+        document.getElementById('motivation').innerText = quotes[Math.floor(Math.random() *
+quotes.length)];
+    }, 5000);
 
-    // 2. Proqramı Hazırla Funksiyası
-    document.getElementById('mainBtn').onclick = function() {
+    // Əsas Hesablama
+    document.getElementById('calcBtn').onclick = function() {
         const w = document.getElementById('weight').value;
-        const n = document.getElementById('notes').value.toLowerCase();
         const g = document.getElementById('goal').value;
+        const s = document.getElementById('status').value;
+        const n = document.getElementById('notes').value.toLowerCase();
         const res = document.getElementById('res');
 
-        if(!w) { alert("Xahiş edirik çəki hissəsini doldurasınız."); return; }
+        if(!w) { alert("Xəritəni hazırlamaq üçün çəkinizi daxil edin."); return; }
 
-        let html = "<h2 style='text-align:center; color:var(--p);'>✨ Fərdi Sağlamlıq Planınız</h2>";
+        let html = "<h2 style='text-align:center; color:var(--p); margin-bottom:20px;'>✨ Sizin Fərdi Sağlamlıq Kartınız</h2>";
 
-        if(n.includes("yumurta") || n.includes("allergiya")) {
-            html += "<div class='allergy-alert'>⚠️ Qeyd: Allergiyanız nəzərə alındı.</div>";
+        // Allergiya Məntiqi
+        if(n.includes("yumurta") || n.includes("süd") || n.includes("allergiya")) {
+            html += `<div class="allergy-tag">⚠️ Xüsusi Qeyd: ${n.includes("yumurta") ? "Yumurta" : "Süd"} allergiyanız nəzərə alınaraq menyu tənzimləndi.</div>`;
         }
 
-        html += "<div class='plan-section'><h3>🥗 Günlük Menyu</h3>";
-        let bf = n.includes("yumurta") ? "Yulaf sıyığı" : "2 yumurta ağından omlet";
-        html += `• <b>Səhər:</b> ${bf}<br>• <b>Nahar:</b> Sağlam zülal + salat.</div>`;
+        // Qidalanma Strategiyası
+        let breakfast = n.includes("yumurta") ? "Badam südü ilə yulaf sıyığı" : "2 yumurta ağından tərəvəzli omlet";
+        html += `<div class="plan-item"><h3>🥗 Qidalanma və Menyu</h3>
+                • <b>Strategiya:</b> ${g === 'lose' ? 'Kalori defisiti və bol lifli qidalar.' : 'Zülal əsaslı balanslı qidalanma.'}<br>
+                • <b>Səhər:</b> ${breakfast}<br>
+                • <b>Nahar:</b> Toyuq filesi/Balıq + qara düyü + salat.<br>
+                • <b>Axşam:</b> Mövsüm tərəvəzlərindən hazırlanmış şorba.</div>`;
 
+        // Aktivlik
+        html += `<div class="plan-item"><h3>🧘‍♀️ Fiziki Aktivlik</h3>
+                • <b>Məsləhət:</b> ${s === 'pregnant' ? 'Hamiləlik yoqası və 20 dəqiqəlik yürüş.' : 'Gündəlik 8,000-10,000 addım və ya 30 dəqiqəlik kardio.'}</div>`;
+
+        // Su Hesabı
         let water = (w * 0.035).toFixed(1);
-        html += `<div style='text-align:center; font-weight:bold; color:var(--p);'>💧 Su Hədəfi: ${water} Litr</div>`;
+        html += `<div style="text-align:center; padding:15px; background:var(--p); color:white; border-radius:20px; font-weight:bold; font-size:1.2rem;">💧 Su Hədəfi: ${water} Litr / Gün</div>`;
 
         res.innerHTML = html;
         res.style.display = "block";
         res.scrollIntoView({ behavior: 'smooth' });
     };
 
-    // 3. Sİ Funksiyası
-document.getElementById('aiBtn').onclick = function() {
+    // Sİ Sual-Cavab
+    document.getElementById('aiBtn').onclick = function() {
+        const input = document.getElementById('aiIn').value;
         const out = document.getElementById('aiOut');
+        if(!input) return;
+        
         out.style.display = "block";
-        out.innerHTML = "<b>Sİ:</b> Düşünürəm... ✨";
+        out.innerHTML = "<b>Sİ düşünür... ✨</b>";
+        
         setTimeout(() => {
-            out.innerHTML = "<b>💡 Sİ Məsləhəti:</b> Hər gün 10 dəqiqə meditasiya və bol su ruhuna yaxşı gələcək. 🌸";
-        }, 800);
+            out.innerHTML = `<b>💡 Sİ Məsləhəti:</b> Unutma ki, sağlamlıq marafon kimidir, sprint deyil. Sualın göstərir ki, sən artıq inkişaf yolundasan! Sabit qal və hər gün 1% daha yaxşı ol! 🌸`;
+        }, 1000);
     };
 </script>
 </body>
