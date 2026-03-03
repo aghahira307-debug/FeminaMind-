@@ -3,65 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Sİ Dəstək</title>
+    <title>FeminaMind | Fərdi Sağlamlıq Platforması</title>
     <style>
-        :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #2d3436; }
-        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 45px 20px; text-align: center; border-radius: 0 0 40px 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .container { padding: 20px; max-width: 480px; margin: auto; }
-        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #f1f1f1; }
-        h3 { color: var(--p); margin-top: 0; font-size: 1.2rem; }
-        select, textarea { width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #eee; border-radius: 15px; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
-        button { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 17px; cursor: pointer; box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3); }
-        #aiRes { margin-top: 15px; padding: 15px; border-radius: 15px; background: #f9f0ff; border-left: 5px solid var(--p); display: none; font-size: 15px; line-height: 1.5; }
-        .quote-box { text-align: center; font-style: italic; color: #636e72; padding: 10px; font-size: 14px; }
+        :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); overflow-x: hidden; }
+        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 30px 30px; }
+        .container { padding: 15px; max-width: 600px; margin: auto; }
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); margin-bottom: 20px; border: 1px solid #f1f1f1; }
+        h3 { color: var(--p); margin-top: 0; border-bottom: 2px solid #f9f0ff; padding-bottom: 5px; }
+        label { font-size: 14px; font-weight: bold; display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #f0f0f0; border-radius: 12px; font-size: 15px; box-sizing: border-box; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        button { width: 100%; background: var(--s); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        button:hover { background: var(--p); }
+        .result-box { display: none; background: #fff; padding: 20px; border-radius: 15px; border-left: 8px solid var(--p); margin-top: 15px; line-height: 1.6; }
+        .ai-limit { font-size: 12px; color: #e74c3c; font-weight: bold; margin-bottom: 10px; }
+        .tab-btn { background: #eee; color: #555; margin-bottom: 5px; }
+        .motivation { text-align: center; font-style: italic; color: var(--p); padding: 15px; font-weight: 500; }
+        .recipe-item, .fit-item { background: #fdf0ff; padding: 10px; border-radius: 10px; margin-bottom: 5px; font-size: 14px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>FeminaMind</h1>
-    <p>Sənin Ağıllı Sağlamlıq Yolun</p>
+    <div id="dailyQuote" class="motivation"></div>
 </header>
 
 <div class="container">
     <div class="card">
-        <h3>🎯 Fərdi Rejimin</h3>
-        <select id="type">
-            <option value="teen">🌸 Gənc Qızlar</option>
-            <option value="mom">🍼 Yeni Analar</option>
-            <option value="pregnant">🤰 Hamiləlik</option>
+        <h3>📊 Fərdi Məlumatlar</h3>
+        <div class="grid">
+            <div><label>Yaş</label><input type="number" id="age"></div>
+            <div><label>Çəki (kq)</label><input type="number" id="weight"></div>
+            <div><label>Boy (sm)</label><input type="number" id="height"></div>
+            <div>
+                <label>Vəziyyət</label>
+                <select id="status">
+                    <option value="teen">Yeniyetmə</option>
+                    <option value="young">Gənc Qız</option>
+                    <option value="pregnant">Hamilə</option>
+                    <option value="mom">Yeni Ana</option>
+                    <option value="milk">Süd Verən</option>
+                </select>
+            </div>
+        </div>
+        <label>Hədəf</label>
+        <select id="goal">
+            <option value="health">Sağlam Həyat</option>
+            <option value="milk_up">Südü Artırmaq</option>
+            <option value="preg_nut">Hamiləlikdə Qidalanma</option>
+            <option value="gain">Çəki Almaq</option>
+            <option value="lose">Çəki Vermək</option>
         </select>
-        <button onclick="calc()">Planı Göster</button>
-        <div id="res" style="margin-top:15px; font-weight: 500; color: #444;"></div>
+        <label>Xüsusi Qeydlər (Xəstəlik, kolit, təzyiq və s.)</label>
+        <textarea id="notes" placeholder="Məsələn: Kolitim var, duzlu yeyə bilmirəm..."></textarea>
+        <button onclick="generateProgram()">Fərdi Proqramı Tərtib Et</button>
     </div>
 
-    <div class="card" style="border-top: 4px solid var(--p);">
-        <h3>✨ Sİ Köməkçi (24/7)</h3>
-        <textarea id="aiIn" placeholder="Gecə acanda və ya şirin istəyəndə bura yaz..."></textarea>
-        <button style="background: #2d3436;" onclick="ask()">Sİ-dən Soruş</button>
-        <div id="aiRes"></div>
+    <div id="programResult" class="result-box card"></div>
+
+    <div class="card" style="background: #fcfaff; border: 2px solid #eee;">
+        <h3>✨ Sİ Köməkçi (Premium)</h3>
+        <div class="ai-limit" id="aiLimit">Sual Limiti: 3/3</div>
+        <textarea id="aiInput" placeholder="Sualınızı bura yazın..."></textarea>
+        <button id="aiBtn" style="background: var(--dark);" onclick="askAI()">Sİ-dən Soruş</button>
+        <div id="aiResponse" style="margin-top:10px; display:none; padding:10px; background:#fff; border-radius:10px;"></div>
     </div>
 
-    <div class="quote-box" id="quote">"Hər gün özün üçün etdiyin kiçik bir şey, gələcəkdə böyük dəyişiklik yaradır."</div>
+    <div class="card">
+        <h3>🥗 Günlük Reseptlər</h3>
+        <div class="recipe-item">🍵 <b>Səhər:</b> Yulaf, darçın və 1 dilim alma.</div>
+        <div class="recipe-item">🍲 <b>Nahar:</b> Toyuq filesi (buxarda) + bol göyərti salatı.</div>
+        <div class="recipe-item">🥤 <b>Ara:</b> 1 fincan kefir və ya yaşıl çay.</div>
+    </div>
+
+    <div class="card">
+        <h3>🧘‍♀️ Sadə Məşqlər</h3>
+        <div class="fit-item">🔹 15 Dəqiqə Sürətli Yürüş</div>
+        <div class="fit-item">🔹 10 Dəfə Yüngül Squat (Çömçəlmə)</div>
+        <div class="fit-item">🔹 Divara söykənərək Plank (30 san)</div>
+    </div>
 </div>
 
 <script>
-    function calc() {
-        let t = document.getElementById('type').value;
-        let r = document.getElementById('res');
-        if(t == 'mom') r.innerHTML = "✅ <b>Tövsiyə:</b> Süd verən zaman bol su və dəmirlə zəngin qidalar seç. Körpə yatanda sən də dincəl.";
-        else if(t == 'teen') r.innerHTML = "✅ <b>Tövsiyə:</b> Aktiv ol! Hər gün 15 dəqiqə sevdiyin musiqi ilə rəqs et və fast-food-u meyvə ilə əvəz et.";
-        else r.innerHTML = "✅ <b>Tövsiyə:</b> Yüngül yürüşlər və tənffüs məşqləri et. Qoz və fındıq kimi sağlam çərəzlər ye.";
-    }
-
-    function ask() {
-        let i = document.getElementById('aiIn').value.toLowerCase();
-        let a = document.getElementById('aiRes');
-        a.style.display = "block";
-        a.innerHTML = "Sİ düşünür... 🧠";
-        
-        setTimeout(() => {
+    // Motivasiya Cümlələri
+    const quotes = [
+        "Sən bu gün özünün ən yaxşı versiyası olmağa bir addım daha yaxınsan! 🌟",
+        "Bədənin sənin məbədindir, ona yaxşı bax. 🧘‍♀️",
+        "Uğur hər gün atılan kiçik addımların cəmidir. ✨",
+        "İradən sənin ən böyük gücündür. 💪",
+        "Bu gün özünə bir yaxşılıq et: Bol su iç! 💧"
+    ];
+    document.getElementById('dailyQuote').innerText = quotes[Math.floor(
             if(i.includes("şokolad") || i.includes("şirin")) {
                 a.innerHTML = "🍐 <b>Sİ Cavabı:</b> Şirin istəyini kəsmək üçün 1 bardaq suya bir az darçın əlavə edib iç və ya bir neçə quru meyvə ye.";
             } else if(i.includes("ac")) {
