@@ -1,67 +1,131 @@
+<!DOCTYPE html>
+<html lang="az">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeminaMind | Professional Qadın Platforması</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        /* PDF Düyməsi üçün xüsusi stil */
-        .pdf-btn {
-            background: #27ae60 !important;
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+        :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); }
+        
+        nav { background: white; padding: 15px; display: flex; justify-content: space-around; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        nav a { text-decoration: none; color: var(--p); font-weight: bold; font-size: 14px; cursor: pointer; }
+
+        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 50px 50px; }
+        .logo-img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; background: white; margin-bottom: 10px; }
+        
+        .container { padding: 20px; max-width: 600px; margin: auto; }
+        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #f0f0f0; }
+        
+        input, select, textarea { width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #eee; border-radius: 15px; box-sizing: border-box; outline: none; }
+        .main-btn { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        
+        .pdf-btn { background: #27ae60 !important; margin-top: 15px; }
+
+        .page-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .close-btn { background: var(--dark); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 20px; right: 20px; cursor: pointer; }
+
+        .plan-box { background: #fef1f8; padding: 20px; border-radius: 20px; border-left: 8px solid var(--p); margin-bottom: 20px; }
     </style>
 </head>
+<body>
+
+<nav>
+    <a onclick="showSection('home')">Əsas</a>
+    <a onclick="showSection('articles')">Məqalələr</a>
+    <a onclick="showSection('register')">Mütəxəssis Ol</a>
+</nav>
+
+<header id="mainHeader">
+    <img src="Femina_20260303_032125_0000.png" alt="FeminaMind" class="logo-img">
+    <h1>FeminaMind</h1>
+    <p>Ağıllı qadınlar üçün ağıllı sistem</p>
+</header>
+
+<div class="container" id="homeSection">
+    <div class="card">
+        <h3>🎯 Fərdi Analiz</h3>
+        <input type="number" id="weight" placeholder="Çəki (kq)">
+        <select id="goal">
+            <option value="lose">Arıqlamaq</option>
+            <option value="gain">Çəki almaq</option>
+        </select>
+        <button class="main-btn" onclick="openPlanPage()">Proqramı Hazırla</button>
+    </div>
+
+    <div class="card">
+        <h3>✨ Sİ Köməkçi <span id="limitLabel" style="font-size: 12px; color: var(--s);"></span></h3>
+        <textarea id="aiIn" placeholder="Sualınızı yazın..."></textarea>
+        <button style="background: var(--dark);" class="main-btn" onclick="askSmartAI()">Soruş</button>
+        <div id="aiOut" style="display:none; margin-top:15px; padding:15px; background:#f4f1ff; border-radius:15px;"></div>
+    </div>
+</div>
+
+<div id="articlesSection" class="container" style="display:none;">
+    <div class="card"><h3>📚 Məqalələr tezliklə burada olacaq...</h3></div>
+</div>
+
+<div id="registerSection" class="container" style="display:none;">
+    <div class="card"><h3>👩‍⚕️ Mütəxəssis qeydiyyatı tezliklə...</h3></div>
+</div>
+
+<div id="planPage" class="page-overlay">
+    <div class="close-btn" onclick="closePlanPage()">✕</div>
+    <div id="planContent" style="max-width:600px; margin: 40px auto;">
+        <div id="printableArea"></div>
+        <button class="main-btn pdf-btn" onclick="downloadPDF()">📥 PDF olaraq yüklə</button>
+    </div>
+</div>
 
 <script>
+    // Sİ Limit Sistemi
+    let aiLimit = JSON.parse(localStorage.getItem('fm_limit')) || { count: 0, date: Date.now() };
+
+    function updateLimitUI() {
+        const now = Date.now();
+        if (now - aiLimit.date > 86400000) { aiLimit = { count: 0, date: now }; }
+        document.getElementById('limitLabel').innerText = `Limit: ${5 - aiLimit.count}/5`;
+        localStorage.setItem('fm_limit', JSON.stringify(aiLimit));
+    }
+    updateLimitUI();
+
+    function askSmartAI() {
+        if (aiLimit.count >= 5) { alert("Günlük limit doldu!"); return; }
+        const input = document.getElementById('aiIn').value;
+        if(!input) return;
+        document.getElementById('aiOut').style.display = "block";
+        document.getElementById('aiOut').innerHTML = "<b>Sİ:</b> Sağlamlığınız üçün su için və balanslı qidalanın.";
+        aiLimit.count++;
+        updateLimitUI();
+    }
+
     function openPlanPage() {
         const w = document.getElementById('weight').value;
-        if(!w) { alert("Lütfən çəkinizi daxil edin."); return; }
-        
+        if(!w) return;
         let water = (w * 0.035).toFixed(1);
-        let html = `
-            <div id="printableArea">
-                <h2 style="color:#8e44ad; text-align:center;">🌸 FeminaMind Fərdi Proqram</h2>
-                <div style="text-align:center; margin-bottom:20px; font-weight:bold;">
-                    Su Hədəfi: ${water} Litr | Tarix: ${new Date().toLocaleDateString()}
-                </div>
-                
-                <div style="background:#fdf2f9; padding:20px; border-radius:20px; border-left:8px solid #8e44ad; margin-bottom:15px;">
-                    <h3 style="margin-top:0;">🥗 3 Günlük Menyu</h3>
-                    <b>Gün 1:</b> Səhər: Omlet. Nahar: Toyuq. Axşam: Qatıq.<br>
-                    <b>Gün 2:</b> Səhər: Yulaf. Nahar: Balıq. Axşam: Tərəvəz.<br>
-                    <b>Gün 3:</b> Səhər: Pendir/Zeytun. Nahar: Şorba. Axşam: Salat.
-                </div>
-
-                <div style="background:#fdf2f9; padding:20px; border-radius:20px; border-left:8px solid #fd79a8; margin-bottom:15px;">
-                    <h3 style="margin-top:0;">🏋️ Fitnes Hərəkətləri</h3>
-                    • Squat: 3 set x 15<br>
-                    • Plank: 30 saniyə<br>
-                    • Yürüş: 8,000 addım
-                </div>
-                
-                <p style="font-size:10px; text-align:center; color:gray;">Bu proqram FeminaMind Sİ tərəfindən hazırlanmışdır.</p>
-            </div>
-            <button class="main-btn pdf-btn" onclick="downloadPDF()">📥 PDF olaraq yüklə</button>
+        
+        document.getElementById('printableArea').innerHTML = `
+            <h2 style="color:#8e44ad; text-align:center;">🌸 FeminaMind Proqram</h2>
+            <p style="text-align:center;">Günlük Su: ${water} L</p>
+            <div class="plan-box"><h3>🥗 Menyu</h3>1. Omlet, 2. Toyuq, 3. Salat</div>
+            <div class="plan-box" style="border-left-color:#fd79a8;"><h3>🏋️ Məşq</h3>Squat, Plank, Yürüş</div>
         `;
-
-        document.getElementById('planResult').innerHTML = html;
         document.getElementById('planPage').style.display = "block";
-        document.body.style.overflow = "hidden";
     }
 
-    // PDF Yükləmə Funksiyası
+    function closePlanPage() { document.getElementById('planPage').style.display = "none"; }
+
+    function showSection(id) {
+        document.getElementById('homeSection').style.display = id === 'home' ? 'block' : 'none';
+        document.getElementById('articlesSection').style.display = id === 'articles' ? 'block' : 'none';
+        document.getElementById('registerSection').style.display = id === 'register' ? 'block' : 'none';
+    }
+
     function downloadPDF() {
         const element = document.getElementById('printableArea');
-        const opt = {
-            margin:       10,
-            filename:     'FeminaMind_Proqram.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        // Düyməni PDF-də gizlətmək üçün html2pdf işlədirik
-        html2pdf().set(opt).from(element).save();
+        html2pdf().from(element).save('FeminaMind_Plan.pdf');
     }
 </script>
+</body>
+</html>
