@@ -3,141 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Ağıllı Sistem</title>
-    
-    <link rel="icon" type="image/png" href="Femina_20260303_032125_0000.png">
-    <link rel="apple-touch-icon" href="Femina_20260303_032125_0000.png">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
+    <title>FeminaMind | Professional Qadın Platforması</title>
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); line-height: 1.6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); }
         
-        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 50px 50px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        .logo-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid white; margin-bottom: 10px; object-fit: cover; background: white; }
-        .slogan { font-size: 16px; font-weight: 500; margin-top: 5px; opacity: 0.9; }
-        .motivation-box { font-style: italic; font-size: 14px; margin-top: 15px; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 30px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); min-width: 220px; }
+        /* Navigasiya */
+        nav { background: white; padding: 15px; display: flex; justify-content: space-around; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        nav a { text-decoration: none; color: var(--p); font-weight: bold; font-size: 14px; cursor: pointer; }
+
+        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 50px 50px; }
+        .logo-img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; background: white; margin-bottom: 10px; }
         
         .container { padding: 20px; max-width: 600px; margin: auto; }
-        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 25px; border: 1px solid #f0f0f0; }
-        h3 { color: var(--p); margin-top: 0; border-bottom: 2px solid #f9f0ff; padding-bottom: 10px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #f0f0f0; }
         
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        input, select, textarea { width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #f0f0f0; border-radius: 18px; font-size: 15px; box-sizing: border-box; outline: none; transition: 0.3s; background: #fafafa; color: #2d3436; }
-        input:focus, select:focus, textarea:focus { border-color: var(--s); background: white; }
-        
-        button { width: 100%; background: var(--s); color: white; border: none; padding: 18px; border-radius: 18px; font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s; box-shadow: 0 8px 20px rgba(253, 121, 168, 0.3); }
-        button:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(253, 121, 168, 0.4); }
-        button:active { transform: scale(0.97); }
-        
-        .result-box { display: none; background: white; padding: 25px; border-radius: 35px; border-top: 12px solid var(--p); margin-top: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); animation: slideIn 0.6s ease-out; }
-        .plan-item { background: #fdf2f9; padding: 18px; border-radius: 20px; margin-bottom: 15px; border-left: 6px solid var(--s); }
-        .allergy-tag { background: #fff1f0; border: 2px dashed #ff4d4f; color: #cf1322; padding: 15px; border-radius: 20px; margin-bottom: 15px; font-weight: bold; }
-        
-        #aiOut { display: none; margin-top: 15px; padding: 18px; background: #f4f1ff; border-radius: 20px; border: 1px solid var(--p); color: var(--dark); font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #eee; border-radius: 15px; box-sizing: border-box; outline: none; }
+        button { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        button:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        /* Yeni Səhifə Görünüşü (Modal) */
+        .page-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; padding: 20px; box-sizing: border-box; animation: slideUp 0.4s ease; }
+        .close-btn { background: var(--dark); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 20px; right: 20px; cursor: pointer; }
+
+        .plan-box { background: #fef1f8; padding: 20px; border-radius: 20px; border-left: 8px solid var(--p); margin-bottom: 20px; }
+        .article { border-bottom: 1px solid #eee; padding: 15px 0; }
+        .badge { background: var(--p); color: white; padding: 4px 10px; border-radius: 10px; font-size: 12px; }
+
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<header>
-    <img src="Femina_20260303_032125_0000.png" alt="FeminaMind" class="logo-img" onerror="this.src='https://via.placeholder.com/100?text=FM'">
-    <h1 style="margin:0; font-size: 2.2rem; letter-spacing: -1px;">FeminaMind</h1>
-    <div class="slogan">Ağıllı qadınlar üçün ağıllı sistem</div>
-    <div id="motivation" class="motivation-box">Yüklənir... ✨</div>
+<nav>
+    <a onclick="showSection('home')">Əsas</a>
+    <a onclick="showSection('articles')">Məqalələr</a>
+    <a onclick="showSection('register')">Mütəxəssis Ol</a>
+</nav>
+
+<header id="mainHeader">
+    <img src="Femina_20260303_032125_0000.png" alt="FeminaMind" class="logo-img">
+    <h1 style="margin:0;">FeminaMind</h1>
+    <p>Ağıllı qadınlar üçün ağıllı sistem</p>
 </header>
 
-<div class="container">
+<div class="container" id="homeSection">
     <div class="card">
-        <h3>🎯 Analiz və Planlama</h3>
-        <div class="grid">
-            <input type="number" id="age" placeholder="Yaş">
-            <input type="number" id="height" placeholder="Boy (sm)">
-            <input type="number" id="weight" placeholder="Çəki (kq)">
-            <select id="status">
-                <option value="young">Gənc Qız</option>
-                <option value="teen">Yeniyetmə Qız</option>
-                <option value="pregnant">Hamilə</option>
-                <option value="mom">Yeni Ana</option>
-                <option value="milk">Süd Verən Ana</option>
-            </select>
-        </div>
+        <h3>🎯 Fərdi Analiz</h3>
+        <input type="number" id="age" placeholder="Yaş">
+        <input type="number" id="weight" placeholder="Çəki (kq)">
         <select id="goal">
-            <option value="lose">Sağlam Çəki Vermək</option>
-            <option value="gain">Çəki Artırmaq</option>
-            <option value="health">Ümumi Sağlamlıq</option>
-            <option value="milk_up">Laktasiya (Süd) Artımı</option>
+            <option value="lose">Arıqlamaq</option>
+            <option value="gain">Çəki almaq</option>
+            <option value="health">Sağlam qalmaq</option>
         </select>
-        <textarea id="notes" placeholder="Allergiyalar və ya xüsusi qeydlər..."></textarea>
-        <button id="calcBtn">Proqramı Hazırla</button>
+        <button onclick="generateFullPlan()">Proqramı Hazırla (Yeni Səhifə)</button>
     </div>
 
-    <div id="res" class="result-box"></div>
-
     <div class="card">
-        <h3>✨ Sİ Köməkçi</h3>
-        <textarea id="aiIn" placeholder="Sualınızı bura yazın..."></textarea>
-        <button style="background: var(--dark);" id="aiBtn">Soruş</button>
-        <div id="aiOut"></div>
+        <h3>✨ Sİ Köməkçi <span id="limitLabel" style="font-size: 12px; color: var(--s);"></span></h3>
+        <textarea id="aiIn" placeholder="Sualınızı yazın..."></textarea>
+        <button style="background: var(--dark);" onclick="askSmartAI()">Soruş</button>
+        <div id="aiOut" style="margin-top:15px; font-size:14px; display:none; padding:15px; background:#f4f1ff; border-radius:15px;"></div>
     </div>
 </div>
 
+<div class="container" id="articlesSection" style="display:none;">
+    <div class="card">
+        <h3>📚 Doğru Bilinən Yanlışlar</h3>
+        <div class="article">
+            <span class="badge">Məqalə #1</span>
+            <h4>Su içmək arıqladırmı?</h4>
+            <p>Yanlış: "Yalnız su içərək arıqlamaq olar." Doğru: Su maddələr mübadiləsini sürətləndirir, amma balanslı qidalanma şərtdir.</p>
+        </div>
+        <div class="article">
+            <span class="badge">Məqalə #2</span>
+            <h4>Axşam 6-dan sonra yemək olmaz?</h4>
+            <p>Yanlış: Bu hamı üçün eyni deyil. Doğru: Yatmazdan 3 saat əvvəl yeməyi dayandırmaq kifayətdir.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="registerSection" style="display:none;">
+    <div class="card">
+        <h3>👩‍⚕️ Mütəxəssis Qeydiyyatı (Yalnız Xanımlar)</h3>
+        <p style="font-size: 12px; color: gray;">Dietoloq və ya Treyner olaraq platformamıza qoşulun.</p>
+        <input type="text" placeholder="Ad və Soyad">
+        <select>
+            <option>Dietoloq</option>
+            <option>Fitnes Treyner</option>
+            <option>Yoqa Təlimçisi</option>
+        </select>
+        <input type="text" placeholder="Sertifikat Linki və ya Təcrübə">
+        <button style="background: var(--p);">Müraciət et</button>
+    </div>
+</div>
+
+<div id="planPage" class="page-overlay">
+    <div class="close-btn" onclick="closePlanPage()">✕</div>
+    <div id="planContent" style="max-width:600px; margin: 40px auto;"></div>
+</div>
+
 <script>
-    // Dinamik Motivasiya Sistemi
-    const quotes = [
-        "Bu gün özün üçün bir yaxşılıq et! ✨",
-        "Hər kiçik addım böyük nəticəyə aparır. 💪",
-        "Sən hər şeyin ən yaxşısına layiqsən! ❤️",
-        "Bədəninə yaxşı bax, o sənin tək evindir. 🌿",
-        "İradən sənin ən böyük gücündür! 🌸"
-    ];
-    function updateQuote() {
-        document.getElementById('motivation').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+    // Sİ LİMİT SİSTEMİ (LocalStorage ilə 24 saatlıq)
+    let aiData = JSON.parse(localStorage.getItem('fm_ai_limit')) || { count: 0, date: Date.now() };
+
+    function checkLimit() {
+        const now = Date.now();
+        if (now - aiData.date > 86400000) { // 24 saat keçibsə sıfırla
+            aiData = { count: 0, date: now };
+        }
+        document.getElementById('limitLabel').innerText = `Limit: ${5 - aiData.count}/5`;
+        localStorage.setItem('fm_ai_limit', JSON.stringify(aiData));
     }
-    updateQuote();
-    setInterval(updateQuote, 6000);
+    checkLimit();
 
-    // Əsas Hesablama Funksiyası
-    document.getElementById('calcBtn').onclick = function() {
-        const w = document.getElementById('weight').value;
-        const n = document.getElementById('notes').value.toLowerCase();
-        const g = document.getElementById('goal').value;
-        const s = document.getElementById('status').value;
-        const res = document.getElementById('res');
-
-        if(!w) { alert("Xahiş edirik çəkinizi daxil edin."); return; }
-
-        let html = "<h2 style='text-align:center; color:var(--p);'>✨ Sizin Fərdi Planınız</h2>";
-
-        if(n.includes("yumurta") || n.includes("allergiya")) {
-            html += `<div class="allergy-tag">⚠️ ALLERGİYA: Menyuda yumurta əvəzinə bitki mənşəli zülallar seçildi.</div>`;
+    // Sİ Ağıllı Cavab Funksiyası
+    function askSmartAI() {
+        if (aiData.count >= 5) {
+            alert("Gündəlik 5 sual limitiniz bitdi. Sabah yenidən cəhd edin! ✨");
+            return;
         }
 
-        html += `<div class="plan-item"><h3>🥗 Günlük Menyu</h3>
-                • <b>Səhər:</b> ${n.includes("yumurta") ? "Yulaf sıyığı + 3 qoz" : "2 yumurta ağından tərəvəzli omlet"}<br>
-                • <b>Nahar:</b> Toyuq filesi və ya Balıq + bol yaşıl salat.<br>
-                • <b>Axşam:</b> Mövsüm tərəvəzlərindən hazırlanmış şorba.</div>`;
-
-        let water = (w * 0.035).toFixed(1);
-        html += `<div style="text-align:center; padding:15px; background:var(--p); color:white; border-radius:20px; font-weight:bold;">💧 Su Hədəfi: ${water} Litr / Gün</div>`;
-
-        res.innerHTML = html;
-        res.style.display = "block";
-        res.scrollIntoView({ behavior: 'smooth' });
-    };
-
-    // Sİ Sual-Cavab
-    document.getElementById('aiBtn').onclick = function() {
+        const input = document.getElementById('aiIn').value.toLowerCase();
         const out = document.getElementById('aiOut');
-        if(!document.getElementById('aiIn').value) return;
+        if (!input) return;
+
         out.style.display = "block";
-        out.innerHTML = "<b>Sİ düşünür... ✨</b>";
+        out.innerHTML = "Düşünürəm... ✨";
+
+        // Məntiqi cavablar
+        let response = "Maraqlı sualdır! Ümumi olaraq deyə bilərəm ki, hər şey balansdan asılıdır. ";
+        if (input.includes("şəkər")) response = "Şəkər asılılığı dopaminlə bağlıdır. Onu meyvə və darçınla əvəzləməyə çalışın.";
+        if (input.includes("su")) response = "Hər kq çəkiyə 35ml su içmək ideal sayılır. Sizin üçün su hədəfi proqramınızda qeyd edilib.";
+        if (input.includes("yuxu")) response = "Gündə 7-8 saat keyfiyyətli yuxu arıqlama prosesinin 30%-ni təşkil edir.";
+
         setTimeout(() => {
-            out.innerHTML = "<b>💡 Məsləhət:</b> Hər gün eyni saatda yatmağa və hər öyündə çeynəmə sayını artırmağa çalışın. Bu, həzmi yaxşılaşdıracaq. 🌸";
+            out.innerHTML = `<b>Sİ Cavabı:</b> ${response}`;
+            aiData.count++;
+            localStorage.setItem('fm_ai_limit', JSON.stringify(aiData));
+            checkLimit();
         }, 1000);
-    };
+    }
+
+    // Naviqasiya Funksiyası
+    function showSection(id) {
+        document.getElementById('homeSection').style.display = id === 'home' ? 'block' : 'none';
+        document.getElementById('articlesSection').style.display = id === 'articles' ? 'block' : 'none';
+        document.getElementById('registerSection').style.display = id === 'register' ? 'block' : 'none';
+        document.getElementById('mainHeader').style.display = id === 'home' ? 'block' : 'none';
+    }
+
+    // 3 GÜNLÜK PLAN VƏ MƏŞQ (Yeni Səhifədə)
+    function generateFullPlan() {
+        const w = document.getElementById('weight').value;
+        if(!w) { alert("Lütfən çəkinizi daxil edin."); return; }
+
+        let html = `
+            <h1 style="color:var(--p); text-align:center;">📋 Sizin 3 Günlük Proqramınız</h1>
+            <p style="text-align:center; opacity:0.7;">Analiz əsasında fərdi tərtib olundu</p>
+            
+            <div class="plan-box">
+                <h3>🍲 3 Günlük Yemək Menyu</h3>
+                <b>Gün 1:</b> Səhər: Omlet + qara çörək. Nahar: Toyuq sote. Axşam: Qatıq.<br><br>
+                <b>Gün 2:</b> Səhər: Yulaf + meyvə. Nahar: Balıq + salat. Axşam: Tərəvəz şorbası.<br><br>
+                <b>Gün 3:</b> Səhər: Pendir, zeytun, tərəvəz. Nahar: Mərcimək şorbası. Axşam: Izqara tərəvəz.
+            </div>
+
+            <div class="plan-box" style="border-left-color: var(--s);">
+                <h3>🏋️ Fitnes Məşqləri</h3>
+                1. <b>Isinmə:</b> 5 dəqiqə yerində yürüş.<br>
+                2. <b>Squat (Oturaq):</b> 3 set x 15 dəfə (Ayaq əzələləri üçün).<br>
+                3. <b>Plank:</b> 30 saniyə (Qarın əzələləri üçün).<br>
+                4. <b>Gəzinti:</b> Gündəlik 8000 addım mütləqdir.
+            </div>
+            
+            <div style="text-align:center; margin-top:30px;">
+                <p>🌟 <i>Bu proqram 3 gün üçün keçərlidir. Gələcəkdə aylıq planlar üçün mütəxəssislərimizə müraciət edə biləcəksiniz.</i></p>
+            </div>
+        `;
+
+        document.getElementById('planContent').innerHTML = html;
+        document.getElementById('planPage').style.display = "block";
+    }
+
+    function closePlanPage() {
+        document.getElementById('planPage').style.display = "none";
+    }
 </script>
 </body>
 </html>
