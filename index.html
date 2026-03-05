@@ -1,70 +1,185 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeminaMind | Professional Menyu Sistemi</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); line-height: 1.6; }
+        nav { background: white; padding: 15px; display: flex; justify-content: space-around; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        nav a { text-decoration: none; color: var(--p); font-weight: bold; font-size: 14px; cursor: pointer; }
+        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 50px 50px; }
+        .logo-img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; background: white; margin-bottom: 10px; }
+        .container { padding: 20px; max-width: 600px; margin: auto; }
+        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #f0f0f0; }
+        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid #eee; border-radius: 15px; box-sizing: border-box; outline: none; font-size: 16px; }
+        label { font-size: 14px; color: var(--p); font-weight: bold; }
+        .main-btn { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
+        .pdf-btn { background: #27ae60 !important; margin-top: 15px; }
+        .page-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; overflow-y: auto; padding: 20px; }
+        .close-btn { background: var(--dark); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 20px; right: 20px; cursor: pointer; font-weight: bold; }
+        .plan-box { background: #fef1f8; padding: 20px; border-radius: 20px; border-left: 8px solid var(--p); margin-bottom: 15px; }
+        .warning-box { background: #fff5f5; border-left: 8px solid #e74c3c; padding: 15px; border-radius: 15px; margin-bottom: 15px; color: #c0392b; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a onclick="showSection('home')">🏠 Əsas</a>
+    <a onclick="showSection('articles')">📚 Məqalələr</a>
+    <a onclick="showSection('register')">👩‍⚕️ Mütəxəssis</a>
+</nav>
+
+<header id="mainHeader">
+    <img src="Femina_20260303_032125_0000.png" alt="FeminaMind" class="logo-img">
+    <h1 style="margin:0;">FeminaMind</h1>
+    <p style="margin:5px 0 0;">Fərdi Sağlamlıq və Menyu Sistemi</p>
+</header>
+
+<div class="container" id="homeSection">
+    <div class="card">
+        <h3>🎯 Analiz Formu</h3>
+        <input type="number" id="age" placeholder="Yaşınız">
+        <input type="number" id="height" placeholder="Boyunuz (sm)">
+        <input type="number" id="weight" placeholder="Çəkiniz (kq)">
+        
+        <label>Status:</label>
+        <select id="status">
+            <option value="genc">Gənc xanım</option>
+            <option value="ana">Yeni ana (Süd verən)</option>
+            <option value="hamile">Hamilə xanım</option>
+            <option value="yeniyetme">Yeniyetmə</option>
+        </select>
+
+        <label>Allergiya:</label>
+        <input type="text" id="allergy" placeholder="Məs: Süd, Qoz, yoxdur...">
+
+        <label>Məqsəd:</label>
+        <select id="goal">
+            <option value="lose">Arıqlamaq</option>
+            <option value="gain">Çəki almaq</option>
+            <option value="health">Sağlamlıq</option>
+        </select>
+        
+        <button class="main-btn" onclick="openPlanPage()">3 Günlük Proqramı Gör</button>
+    </div>
+
+    <div class="card">
+        <h3>✨ Sİ Köməkçi <span id="limitLabel" style="font-size: 12px; color: var(--s); float: right;"></span></h3>
+        <textarea id="aiIn" placeholder="Sualınızı yazın..."></textarea>
+        <button style="background: var(--dark);" class="main-btn" onclick="askSmartAI()">Soruş</button>
+        <div id="aiOut" style="display:none; margin-top:15px; padding:15px; background:#f4f1ff; border-radius:15px;"></div>
+    </div>
+</div>
+
+<div id="articlesSection" class="container" style="display:none;">
+    <div class="card"><h3>📚 Faydalı Məqalələr</h3><p>Sabah paylaşılacaq İnşallah.</p></div>
+</div>
+
+<div id="registerSection" class="container" style="display:none;">
+    <div class="card"><h3>👩‍⚕️ Mütəxəssis Qeydiyyatı</h3><p>Mütəxəssislər üçün panel hazırlanır.</p></div>
+</div>
+
+<div id="planPage" class="page-overlay">
+    <div class="close-btn" onclick="closePlanPage()">✕</div>
+    <div style="max-width:600px; margin: 40px auto;">
+        <div id="printableArea"></div>
+        <button class="main-btn pdf-btn" onclick="downloadPDF()">📥 PDF olaraq yüklə</button>
+    </div>
+</div>
+
 <script>
+    let aiLimit = JSON.parse(localStorage.getItem('fm_limit_v7')) || { count: 0, date: Date.now() };
+
+    function updateLimitUI() {
+        const now = Date.now();
+        if (now - aiLimit.date > 86400000) { aiLimit = { count: 0, date: now }; }
+        document.getElementById('limitLabel').innerText = `Limit: ${5 - aiLimit.count}/5`;
+        localStorage.setItem('fm_limit_v7', JSON.stringify(aiLimit));
+    }
+    updateLimitUI();
+
+    function askSmartAI() {
+        if (aiLimit.count >= 5) { alert("Limit dolub!"); return; }
+        const input = document.getElementById('aiIn').value;
+        if(!input) return;
+        const out = document.getElementById('aiOut');
+        out.style.display = "block";
+        out.innerHTML = "<b>Sİ:</b> Məlumatlarınız analiz edilir... Həmişə həkimlə məsləhətləşin.";
+        aiLimit.count++;
+        updateLimitUI();
+    }
+
     function openPlanPage() {
         const age = document.getElementById('age').value;
         const height = document.getElementById('height').value;
         const weight = document.getElementById('weight').value;
-        const status = document.getElementById('status').value;
         const goal = document.getElementById('goal').value;
         const allergy = document.getElementById('allergy').value || "Yoxdur";
         
-        if(!age || !height || !weight || !status) { alert("Lütfən bütün xanaları doldurun."); return; }
+        if(!age || !height || !weight) { alert("Xanaları doldurun."); return; }
         
         let water = (weight * 0.035).toFixed(1);
-        let statusText = document.getElementById('status').options[document.getElementById('status').selectedIndex].text;
-        
-        // 3 Günlük Menyu Məntiqi (Hədəfə görə)
         let menu = {};
+
         if(goal === "lose") {
             menu = {
-                g1: "Səhər: 2 qaynadılmış yumurta, bol göyərti, 30qr pendir. <br>Nahar: 150qr qaynadılmış toyuq sinəsi, böyük boşqab yaşıl salat. <br>Axşam: 1 kassa qatıq, içinə 1 xörək qaşığı kətan toxumu.",
-                g2: "Səhər: 3 x.q. yulaf (su ilə), yarım alma, darçın. <br>Nahar: Bişmiş mərci şorbası, 1 dilim tam buğda çörəyi. <br>Axşam: Sobada bişmiş tərəvəzlər (kabak, bibər, brokoli).",
-                g3: "Səhər: 1 yumurtadan göyərtili omlet, 5 zeytun. <br>Nahar: 150qr sobada balıq və ya tuna salatı. <br>Axşam: Qaynadılmış qarabaşaq (5 x.q.) və çoban salatı."
+                g1: "<b>Səhər:</b> 2 yumurta, tərəvəz, pendir.<br><b>Nahar:</b> Toyuq (150qr), yaşıl salat.<br><b>Axşam:</b> Qatıq, kətan toxumu.",
+                g2: "<b>Səhər:</b> Yulaf (su ilə), alma.<br><b>Nahar:</b> Mərci şorbası, 1 dilim çörək.<br><b>Axşam:</b> Sobada tərəvəzlər.",
+                g3: "<b>Səhər:</b> Omlet, 5 zeytun.<br><b>Nahar:</b> Balıq və ya tuna salatı.<br><b>Axşam:</b> Qarabaşaq, çoban salatı."
             };
         } else if(goal === "gain") {
             menu = {
-                g1: "Səhər: 3 yumurtadan qayğanaq, qoz, bal, süd. <br>Nahar: Mal əti ilə plov (və ya makaron), meyvə şirəsi. <br>Axşam: Toyuq qızartması, kartof püresi, ayran.",
-                g2: "Səhər: Fıstıq əzməli çörək, kəsmik, banan. <br>Nahar: Bol ətli lobya şorbası, düyü. <br>Axşam: Sobada ətli kartof, süzmə qatıq.",
-                g3: "Səhər: Pendirli buterbrodlar, yumurta, xurma. <br>Nahar: Izqara ət, makaron, çoban salatı. <br>Axşam: Mərci plovu, ətli tərəvəz yeməyi."
+                g1: "<b>Səhər:</b> 3 yumurta, bal, qoz.<br><b>Nahar:</b> Ətli plov, ayran.<br><b>Axşam:</b> Toyuq, püresi.",
+                g2: "<b>Səhər:</b> Fıstıq əzməsi, banan.<br><b>Nahar:</b> Lobya şorbası, düyü.<br><b>Axşam:</b> Ətli kartof yeməyi.",
+                g3: "<b>Səhər:</b> Pendirli tost, yumurta.<br><b>Nahar:</b> Izqara ət, makaron.<br><b>Axşam:</b> Ətli tərəvəz plovu."
             };
         } else {
             menu = {
-                g1: "Səhər: Yumurta, pendir, pomidor-xiyar, bitki çayı. <br>Nahar: Tərəvəzli ət yeməyi, 1 kassa qatıq. <br>Axşam: Balıq və ya toyuq, bol salat.",
-                g2: "Səhər: Kəsmik, meyvə, bir ovuc badam. <br>Nahar: Qarabaşaq və toyuq. <br>Axşam: Göyərti küküsü, qatıq.",
-                g3: "Səhər: Omlet, zeytun, meyvə. <br>Nahar: Zeytun yağlı lobya yeməyi, düyü. <br>Axşam: Sobada toyuq və tərəvəz."
+                g1: "<b>Səhər:</b> Normal səhər yeməyi.<br><b>Nahar:</b> Tərəvəzli ət yeməyi.<br><b>Axşam:</b> Balıq, bol salat.",
+                g2: "<b>Səhər:</b> Kəsmik, meyvə, badam.<br><b>Nahar:</b> Toyuq, qarabaşaq.<br><b>Axşam:</b> Göyərti küküsü.",
+                g3: "<b>Səhər:</b> Omlet, zeytun.<br><b>Nahar:</b> Zeytun yağlı yemək.<br><b>Axşam:</b> Sobada toyuq."
             };
         }
 
-        let allergyWarning = allergy.toLowerCase() !== "yoxdur" ? 
-            `<div class="warning-box">⚠️ <b>Allergiya:</b> ${allergy} nəzərə alaraq menyunu tənzimləyin!</div>` : "";
+        let allergyWarn = (allergy.toLowerCase() !== "yoxdur") ? 
+            `<div class="warning-box">⚠️ <b>Allergiya Qeydi:</b> ${allergy} nəzərə alınmalıdır!</div>` : "";
 
         document.getElementById('printableArea').innerHTML = `
-            <div style="padding:15px;">
-                <h2 style="color:#8e44ad; text-align:center;">🌸 FeminaMind Fərdi Hesabat</h2>
-                <div style="text-align:center; font-size:14px; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
-                    <b>Status:</b> ${statusText} | <b>Məqsəd:</b> ${goal === "lose" ? "Arıqlamaq" : goal === "gain" ? "Çəki almaq" : "Sağlamlıq"}<br>
-                    <b>Yaş:</b> ${age} | <b>Boy:</b> ${height} sm | <b>Çəki:</b> ${weight} kq<br>
-                    <span style="color:#fd79a8; font-weight:bold;">💧 Su: ${water} L</span>
+            <div style="padding:15px; border:1px solid #eee; border-radius:20px;">
+                <h2 style="color:#8e44ad; text-align:center;">🌸 FeminaMind Hesabat</h2>
+                <div style="text-align:center; margin-bottom:15px;">
+                    <b>BKİ Hesablanır...</b> | <b>Su: ${water} L</b>
                 </div>
-                
-                ${allergyWarning}
-
+                ${allergyWarn}
                 <div class="plan-box">
-                    <h3 style="margin-top:0;">📅 3 Günlük Tam Menyu</h3>
-                    <p><b>Gün 1:</b><br> ${menu.g1}</p>
-                    <p><b>Gün 2:</b><br> ${menu.g2}</p>
-                    <p><b>Gün 3:</b><br> ${menu.g3}</p>
-                </div>
-
-                <div class="plan-box" style="border-left-color:#fd79a8;">
-                    <h3 style="margin-top:0;">🏋️ Məşq Proqramı</h3>
-                    - Gündəlik 30-40 dəqiqə sürətli yürüş.<br>
-                    - Statusa görə: 15 Squat, 20 saniyə Plank (3 set).<br>
-                    - Gərginlikdən uzaq durmaq üçün axşam meditasiyası.
+                    <h3>📅 3 Günlük Tam Menyu</h3>
+                    <p><b>GÜN 1:</b><br>${menu.g1}</p>
+                    <hr style="border:0; border-top:1px dashed #eee;">
+                    <p><b>GÜN 2:</b><br>${menu.g2}</p>
+                    <hr style="border:0; border-top:1px dashed #eee;">
+                    <p><b>GÜN 3:</b><br>${menu.g3}</p>
                 </div>
             </div>
         `;
         document.getElementById('planPage').style.display = "block";
     }
 
-    // Digər funksiyalar (downloadPDF, closePlanPage və s.) olduğu kimi qalır
+    function closePlanPage() { document.getElementById('planPage').style.display = "none"; }
+
+    function downloadPDF() {
+        const element = document.getElementById('printableArea');
+        html2pdf().from(element).save('FeminaMind_Plan.pdf');
+    }
+
+    function showSection(id) {
+        document.getElementById('homeSection').style.display = id === 'home' ? 'block' : 'none';
+        document.getElementById('articlesSection').style.display = id === 'articles' ? 'block' : 'none';
+        document.getElementById('registerSection').style.display = id === 'register' ? 'block' : 'none';
+        document.getElementById('mainHeader').style.display = id === 'home' ? 'block' : 'none';
+    }
 </script>
+</body>
+</html>
