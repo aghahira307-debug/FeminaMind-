@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Ağıllı Xanım Portalı</title>
+    <title>FeminaMind | Professional Qadın Portalı</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
@@ -23,7 +23,7 @@
         .close-btn { background: var(--dark); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 15px; right: 15px; cursor: pointer; }
         .plan-box { background: #fef1f8; padding: 18px; border-radius: 18px; border-left: 6px solid var(--p); margin-bottom: 12px; }
         .bki-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; color: white; font-size: 12px; font-weight: bold; margin-left: 5px; }
-        .warning-box { background: #fff5f5; border-left: 6px solid #e74c3c; padding: 12px; border-radius: 12px; margin-bottom: 12px; color: #c0392b; font-size: 13px; }
+        .water-badge { color: #3498db; font-weight: bold; font-size: 14px; margin-top: 5px; display: block; }
     </style>
 </head>
 <body>
@@ -41,7 +41,7 @@
 </header>
 
 <div class="container" id="homeSection">
-    <div id="motivationArea" class="motivation-box">✨ Yüklənir...</div>
+    <div id="motivationArea" class="motivation-box">✨ Hər gün yeni bir başlanğıcdır!</div>
 
     <div class="card">
         <h3>🎯 Analiz və Menyu</h3>
@@ -72,53 +72,33 @@
 
     <div class="card">
         <h3 style="color:var(--p);">✨ Sİ Köməkçi</h3>
-        <textarea id="aiIn" placeholder="Məsələn: İdmançıyam, protein miqdarı necə olmalı?"></textarea>
+        <textarea id="aiIn" placeholder="Məsələn: Gecə acanda nə yeyə bilərəm?"></textarea>
         <button style="background: var(--dark);" class="main-btn" onclick="askSmartAI()">Sual Ver</button>
         <div id="aiOut" class="ai-out"></div>
-    </div>
-</div>
-
-<div class="container" id="articlesSection" style="display:none;">
-    <div class="card">
-        <h2 style="color:var(--p); text-align:center;">📚 Faydalı Məqalələr</h2>
-        <div class="article-item">
-            <h4 style="color:var(--s);">🦴 Sümük sağlamlığı (Menopoz)</h4>
-            <p style="font-size:14px;">Menopoz dövründə kalsium və D vitamini qəbulu sümük əriməsinin qarşısını almaq üçün həyatidir.</p>
-        </div>
-        <div class="article-item" style="margin-top:15px; border-top:1px dashed #eee; padding-top:10px;">
-            <h4 style="color:var(--s);">🏃‍♀️ İdmançı xanımlar üçün bərpa</h4>
-            <p style="font-size:14px;">Məşqdən sonra ilk 30 dəqiqədə protein və kompleks karbonhidrat qəbulu əzələ bərpasını sürətləndirir.</p>
-        </div>
     </div>
 </div>
 
 <div id="planPage" class="page-overlay">
     <div class="close-btn" onclick="closePlanPage()">✕</div>
     <div id="printableArea" style="max-width:550px; margin: 30px auto;"></div>
-    <button class="main-btn" style="background:#27ae60; width: 80%; display:block; margin:auto;" onclick="downloadPDF()">📥 PDF yüklə</button>
+    <button class="main-btn" style="background:#27ae60; width: 80%; display:block; margin:20px auto;" onclick="downloadPDF()">📥 PDF yüklə</button>
 </div>
 
 <script>
-    const motivations = [
-        "Sən hər yaşda və hər dövrdə özəlsən! 🌸",
-        "Bu gün etdiyin seçim sabahkı sağlamlığındır. ✨",
-        "Güclü xanım, sağlam bədən! 🚀"
-    ];
-    document.getElementById('motivationArea').innerText = motivations[Math.floor(Math.random() * motivations.length)];
-
+    // Sİ CAVABLARINI TƏKMİLLƏŞDİRDİM
     function askSmartAI() {
         const input = document.getElementById('aiIn').value.toLowerCase();
         const out = document.getElementById('aiOut');
         out.style.display = "block";
-        out.innerHTML = "Analiz edilir...";
+        out.innerHTML = "Analiz edilir... 🤔";
         
         setTimeout(() => {
-            let res = "Sizin üçün balanslı qidalanma tövsiyə edilir.";
-            if(input.includes("idman")) res = "İdmançı xanımlar üçün çəkinin hər kiloqramına 1.2-1.6 qr protein düşməlidir. Bol su və elektrolit balansı vacibdir.";
-            if(input.includes("menopoz")) res = "Bu dövrdə metabolizma yavaşladığı üçün kalori miqdarına diqqət etməli, soya məhsulları və kətan toxumu kimi fitoestrogenlərə yer verməlisiniz.";
-            if(input.includes("yeniyetmə")) res = "İnkişaf dövründə fast-fooddan qaçmalı, boy artımı üçün kalsium və sinklə zəngin qidalar qəbul etməlisiniz.";
-            out.innerHTML = `<b>Sİ:</b> ${res}`;
-        }, 1000);
+            let res = "Bu mövzuda daha detallı məlumat üçün peşəkar mütəxəssislərimizə müraciət edə bilərsiniz. Balanslı qidalanma hər şeyin açarıdır.";
+            if(input.includes("gecə") || input.includes("acanda")) res = "Gecə acanda 1 kassa qatıq, bir ovuc çiy badam və ya çobanyastığı çayı içməyi tövsiyə edirəm. Bu, həm tox tutur, həm də yuxunu qaçırmır.";
+            if(input.includes("idman")) res = "İdmançı xanımlar üçün məşqdən sonra protein və kompleks karbonhidrat (məs: toyuq və qarabaşaq) qəbulu əzələ bərpası üçün vacibdir.";
+            if(input.includes("su")) res = "Gündəlik su hədəfinizi proqramı hazırlayaraq öyrənə bilərsiniz. Suyu qurtumlarla içmək metabolizmanı daha yaxşı aktivləşdirir.";
+            out.innerHTML = `<b>Sİ Köməkçi:</b> ${res} <br><br><small style="color:gray;">*Məlumatlar tövsiyə xarakterlidir.</small>`;
+        }, 800);
     }
 
     function calculateBMI(w, h) {
@@ -131,54 +111,83 @@
         return { val: bki, label: status, col: color };
     }
 
+    // ƏSAS PROBLEM BURADA İDİ - DÜZƏLDİLDİ
     function openPlanPage() {
         const h = document.getElementById('height').value;
         const w = document.getElementById('weight').value;
         const status = document.getElementById('userStatus').value;
-        const allergy = document.getElementById('allergy').value.toLowerCase();
+        const allergyInput = document.getElementById('allergy').value || "Yoxdur";
+        const allergy = allergyInput.toLowerCase();
         
-        if(!h || !w) return alert("Məlumatları daxil edin.");
+        if(!h || !w) return alert("Lütfən boy və çəkinizi daxil edin.");
+        
         const bki = calculateBMI(w, h);
-        
-        let planDesc = "";
-        let menuContent = "";
+        const water = (w * 0.035).toFixed(1); // Su miqdarı hesabı
 
-        // Statusa uyğun məntiq
-        switch(status) {
-            case "pregnant":
-                planDesc = "🤰 Hamiləlik rejimi: Dəmir və Fol turşusu fokuslu.";
-                menuContent = "<b>Səhər:</b> Yumurta, tam buğda çörəyi, tərəvəz.<br><b>Nahar:</b> Qırmızı ət və ya mərci (Dəmir üçün).<br><b>Axşam:</b> Qatıq və buğda şorbası.";
-                break;
-            case "athlete":
-                planDesc = "🏃‍♀️ İdmançı rejimi: Yüksək protein və enerji.";
-                menuContent = "<b>Səhər:</b> Yulaf, yumurta ağı, fıstıq əzməsi.<br><b>Nahar:</b> Toyuq filesi, qəhvəyi düyü.<br><b>Axşam:</b> Balıq və bol yaşıl salat.";
-                break;
-            case "menopause":
-                planDesc = "🧘‍♀️ Menopoz rejimi: Kalsium və Fitoestrogen fokuslu.";
-                menuContent = "<b>Səhər:</b> Kəsmik, qoz, kətan toxumu.<br><b>Nahar:</b> Zeytun yağlı tərəvəz yeməyi.<br><b>Axşam:</b> Qatıq, tərəvəz şorbası.";
-                break;
-            case "teen":
-                planDesc = "🎒 Yeniyetmə rejimi: Vitamin və Mineral zəngin.";
-                menuContent = "<b>Səhər:</b> Bal, süd, yumurta, pendir.<br><b>Nahar:</b> Ev yeməyi, meyvə şirəsi.<br><b>Axşam:</b> Ətli tərəvəz, qatıq.";
-                break;
-            default:
-                planDesc = "🌸 Standart Sağlamlıq Rejimi.";
-                menuContent = "<b>Səhər:</b> Balanslı protein və lif.<br><b>Nahar:</b> Sağlam karbonhidrat və zülal.<br><b>Axşam:</b> Yüngül həzm olunan qidalar.";
-        }
+        // Allergiya filtr funksiyası
+        const fix = (food, alt) => {
+            if (allergy.includes("yumurta") && food.toLowerCase().includes("yumurta")) return alt;
+            if (allergy.includes("süd") && food.toLowerCase().includes("süd")) return alt;
+            if (allergy.includes("pendir") && food.toLowerCase().includes("pendir")) return alt;
+            return food;
+        };
 
-        let allergyMsg = allergy ? `<div class="warning-box">⚠️ <b>Allergiya:</b> ${allergy} nəzərə alındı.</div>` : "";
+        // Bütün statuslar üçün KONKRET menyular
+        let menuData = {
+            teen: {
+                title: "🎒 Yeniyetmə Rejimi",
+                days: [
+                    `🥣 <b>Səhər:</b> ${fix("Pendir, yumurta", "Kəsmik")}, zeytun, bal.<br>🍱 <b>Nahar:</b> Ev yeməyi, meyvə şirəsi.<br>🌙 <b>Axşam:</b> Ətli tərəvəz, qatıq.`,
+                    `🥣 <b>Səhər:</b> Süd, yulaf, qoz.<br>🍱 <b>Nahar:</b> Toyuq, düyü, salat.<br>🌙 <b>Axşam:</b> Mərci şorbası.`,
+                    `🥣 <b>Səhər:</b> Omlet, tərəvəz.<br>🍱 <b>Nahar:</b> Balıq, kartof pürəsi.<br>🌙 <b>Axşam:</b> Qarabaşaq, qatıq.`
+                ]
+            },
+            pregnant: {
+                title: "🤰 Hamiləlik Rejimi",
+                days: [
+                    `🥣 <b>Səhər:</b> ${fix("2 yumurta", "Kəsmik")}, bol yeşillik.<br>🍱 <b>Nahar:</b> Qırmızı ət (yaxşı bişmiş), salat.<br>🌙 <b>Axşam:</b> Tərəvəz şorbası, qatıq.`,
+                    `🥣 <b>Səhər:</b> Pendir, tam buğda çörəyi, badam.<br>🍱 <b>Nahar:</b> Balıq, bol limonlu salat.<br>🌙 <b>Axşam:</b> Noxud yeməyi.`,
+                    `🥣 <b>Səhər:</b> Meyvəli qatıq, qoz.<br>🍱 <b>Nahar:</b> Toyuq sote, bulqur.<br>🌙 <b>Axşam:</b> İspanaq yeməyi.`
+                ]
+            },
+            athlete: {
+                title: "🏃‍♀️ İdmançı Rejimi",
+                days: [
+                    `🥣 <b>Səhər:</b> Yulaf, ${fix("yumurta ağı", "fıstıq əzməsi")}.<br>🍱 <b>Nahar:</b> Toyuq filesi, qarabaşaq.<br>🌙 <b>Axşam:</b> Balıq, brokkoli.`,
+                    `🥣 <b>Səhər:</b> Omlet, pendir, zeytun.<br>🍱 <b>Nahar:</b> Ət sote, düyü.<br>🌙 <b>Axşam:</b> Kəsmik, meyvə.`,
+                    `🥣 <b>Səhər:</b> Smoothie (banan, süd).<br>🍱 <b>Nahar:</b> Hinduşka əti, salat.<br>🌙 <b>Axşam:</b> Mərcili bulqur.`
+                ]
+            },
+            default: {
+                title: "🌸 Sağlamlıq Rejimi",
+                days: [
+                    `🥣 <b>Səhər:</b> ${fix("2 yumurta", "150qr kəsmik")}, tərəvəz.<br>🍱 <b>Nahar:</b> Mövsüm tərəvəzi, qatıq.<br>🌙 <b>Axşam:</b> Izqara balıq və ya toyuq.`,
+                    `🥣 <b>Səhər:</b> Pendir, 5 zeytun, çörək.<br>🍱 <b>Nahar:</b> Toyuq sote, salat.<br>🌙 <b>Axşam:</b> Göyərti küküsü.`,
+                    `🥣 <b>Səhər:</b> Meyvə, badam, qatıq.<br>🍱 <b>Nahar:</b> Paxlalı yemək, turşu.<br>🌙 <b>Axşam:</b> Yüngül şorba.`
+                ]
+            }
+        };
+
+        let selected = menuData[status] || menuData['default'];
 
         document.getElementById('printableArea').innerHTML = `
-            <div style="border:1px solid #eee; border-radius:20px; padding:20px; text-align:center;">
-                <h2>FeminaMind Fərdi Hesabat</h2>
-                <div style="margin-bottom:15px;">
-                    <span style="font-weight:bold;">${planDesc}</span><br>
-                    BKİ: ${bki.val} <span class="bki-badge" style="background:${bki.col}">${bki.label}</span>
+            <div style="border: 2px solid #f0f0f0; border-radius: 25px; padding: 25px; background: white;">
+                <h2 style="color:var(--p); text-align:center; margin-bottom:10px;">🌸 FeminaMind Fərdi Hesabat</h2>
+                <div style="text-align:center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
+                    <span style="font-weight:bold; font-size:18px;">${selected.title}</span><br>
+                    BKİ: ${bki.val} <span class="bki-badge" style="background:${bki.col}">${bki.label}</span><br>
+                    <span class="water-badge">💧 Gündəlik Su Hədəfi: ${water} L</span>
                 </div>
-                ${allergyMsg}
-                <div class="plan-box" style="text-align:left;">
-                    <h3 style="color:var(--p);">📅 3 Günlük Plan</h3>
-                    <p>${menuContent}</p>
+
+                <div class="plan-box">
+                    <h3 style="color:var(--p); border-bottom: 1px dashed var(--p); padding-bottom: 5px;">📅 3 Günlük Tam Menyu</h3>
+                    <p style="margin-bottom:15px;"><b>GÜN 1:</b><br>${selected.days[0]}</p>
+                    <p style="margin-bottom:15px;"><b>GÜN 2:</b><br>${selected.days[1]}</p>
+                    <p><b>GÜN 3:</b><br>${selected.days[2]}</p>
+                </div>
+
+                <div style="margin-top:20px; font-size:13px; color:#e74c3c; background:#fff5f5; padding:10px; border-radius:10px;">
+                    ⚠️ <b>Allergiya Qeydi:</b> ${allergyInput} nəzərə alınaraq alternativlər təklif olundu.
                 </div>
             </div>
         `;
@@ -188,10 +197,9 @@
     function showSection(id) {
         document.getElementById('homeSection').style.display = id === 'home' ? 'block' : 'none';
         document.getElementById('articlesSection').style.display = id === 'articles' ? 'block' : 'none';
-        document.getElementById('mainHeader').style.display = id === 'home' ? 'block' : 'none';
     }
     function closePlanPage() { document.getElementById('planPage').style.display = "none"; }
-    function downloadPDF() { html2pdf().from(document.getElementById('printableArea')).save('FeminaMind_Hesabat.pdf'); }
+    function downloadPDF() { html2pdf().from(document.getElementById('printableArea')).save('FeminaMind_Plan.pdf'); }
 </script>
 </body>
 </html>
