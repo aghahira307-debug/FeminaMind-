@@ -7,21 +7,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); line-height: 1.6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); line-height: 1.5; }
         nav { background: white; padding: 15px; display: flex; justify-content: space-around; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
-        nav a { text-decoration: none; color: var(--p); font-weight: bold; font-size: 14px; cursor: pointer; }
-        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 50px 50px; }
-        .logo-img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; background: white; margin-bottom: 10px; }
+        nav a { text-decoration: none; color: var(--p); font-weight: bold; cursor: pointer; }
+        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 30px 20px; text-align: center; border-radius: 0 0 40px 40px; }
+        .logo-img { width: 70px; height: 70px; border-radius: 50%; border: 3px solid white; background: white; margin-bottom: 5px; }
         .container { padding: 20px; max-width: 600px; margin: auto; }
-        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #f0f0f0; }
-        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid #eee; border-radius: 15px; box-sizing: border-box; outline: none; font-size: 16px; }
-        label { font-size: 14px; color: var(--p); font-weight: bold; }
-        .main-btn { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
-        .pdf-btn { background: #27ae60 !important; margin-top: 15px; }
-        .page-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; overflow-y: auto; padding: 20px; }
-        .close-btn { background: var(--dark); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 20px; right: 20px; cursor: pointer; font-weight: bold; }
-        .plan-box { background: #fef1f8; padding: 20px; border-radius: 20px; border-left: 8px solid var(--p); margin-bottom: 15px; }
-        .warning-box { background: #fff5f5; border-left: 8px solid #e74c3c; padding: 15px; border-radius: 15px; margin-bottom: 15px; color: #c0392b; font-size: 14px; }
+        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #f0f0f0; }
+        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; }
+        .main-btn { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
+        .page-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; overflow-y: auto; padding: 15px; box-sizing: border-box; }
+        .close-btn { background: var(--dark); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 15px; right: 15px; cursor: pointer; font-weight: bold; }
+        .plan-box { background: #fef1f8; padding: 18px; border-radius: 18px; border-left: 6px solid var(--p); margin-bottom: 12px; }
+        .warning-box { background: #fff5f5; border-left: 6px solid #e74c3c; padding: 12px; border-radius: 12px; margin-bottom: 12px; color: #c0392b; font-size: 13px; }
+        .bki-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -34,133 +33,104 @@
 
 <header id="mainHeader">
     <img src="Femina_20260303_032125_0000.png" alt="FeminaMind" class="logo-img">
-    <h1 style="margin:0;">FeminaMind</h1>
-    <p style="margin:5px 0 0;">Fərdi Sağlamlıq və Menyu Sistemi</p>
+    <h1 style="margin:0; font-size: 24px;">FeminaMind</h1>
 </header>
 
 <div class="container" id="homeSection">
     <div class="card">
-        <h3>🎯 Analiz Formu</h3>
+        <h3>🎯 Analiz və Menyu</h3>
         <input type="number" id="age" placeholder="Yaşınız">
         <input type="number" id="height" placeholder="Boyunuz (sm)">
         <input type="number" id="weight" placeholder="Çəkiniz (kq)">
         
-        <label>Status:</label>
-        <select id="status">
-            <option value="genc">Gənc xanım</option>
-            <option value="ana">Yeni ana (Süd verən)</option>
-            <option value="hamile">Hamilə xanım</option>
-            <option value="yeniyetme">Yeniyetmə</option>
-        </select>
-
-        <label>Allergiya:</label>
-        <input type="text" id="allergy" placeholder="Məs: Süd, Qoz, yoxdur...">
-
-        <label>Məqsəd:</label>
         <select id="goal">
-            <option value="lose">Arıqlamaq</option>
-            <option value="gain">Çəki almaq</option>
-            <option value="health">Sağlamlıq</option>
+            <option value="lose">Arıqlamaq (Defisit)</option>
+            <option value="gain">Çəki almaq (Sürətli)</option>
+            <option value="health" selected>Sağlamlıq (Balanslı)</option>
         </select>
+
+        <input type="text" id="allergy" placeholder="Allergiya (məs: süd, yoxdur...)">
         
-        <button class="main-btn" onclick="openPlanPage()">3 Günlük Proqramı Gör</button>
+        <button class="main-btn" onclick="openPlanPage()">3 Günlük Proqramı Hazırla</button>
     </div>
-
-    <div class="card">
-        <h3>✨ Sİ Köməkçi <span id="limitLabel" style="font-size: 12px; color: var(--s); float: right;"></span></h3>
-        <textarea id="aiIn" placeholder="Sualınızı yazın..."></textarea>
-        <button style="background: var(--dark);" class="main-btn" onclick="askSmartAI()">Soruş</button>
-        <div id="aiOut" style="display:none; margin-top:15px; padding:15px; background:#f4f1ff; border-radius:15px;"></div>
-    </div>
-</div>
-
-<div id="articlesSection" class="container" style="display:none;">
-    <div class="card"><h3>📚 Faydalı Məqalələr</h3><p>Sabah paylaşılacaq İnşallah.</p></div>
-</div>
-
-<div id="registerSection" class="container" style="display:none;">
-    <div class="card"><h3>👩‍⚕️ Mütəxəssis Qeydiyyatı</h3><p>Mütəxəssislər üçün panel hazırlanır.</p></div>
 </div>
 
 <div id="planPage" class="page-overlay">
     <div class="close-btn" onclick="closePlanPage()">✕</div>
-    <div style="max-width:600px; margin: 40px auto;">
-        <div id="printableArea"></div>
-        <button class="main-btn pdf-btn" onclick="downloadPDF()">📥 PDF olaraq yüklə</button>
+    <div id="printableArea" style="max-width:550px; margin: 30px auto;">
+        </div>
+    <div style="text-align:center; padding-bottom: 30px;">
+        <button class="main-btn" style="background:#27ae60; width: 80%;" onclick="downloadPDF()">📥 PDF olaraq yüklə</button>
     </div>
 </div>
 
 <script>
-    let aiLimit = JSON.parse(localStorage.getItem('fm_limit_v7')) || { count: 0, date: Date.now() };
-
-    function updateLimitUI() {
-        const now = Date.now();
-        if (now - aiLimit.date > 86400000) { aiLimit = { count: 0, date: now }; }
-        document.getElementById('limitLabel').innerText = `Limit: ${5 - aiLimit.count}/5`;
-        localStorage.setItem('fm_limit_v7', JSON.stringify(aiLimit));
-    }
-    updateLimitUI();
-
-    function askSmartAI() {
-        if (aiLimit.count >= 5) { alert("Limit dolub!"); return; }
-        const input = document.getElementById('aiIn').value;
-        if(!input) return;
-        const out = document.getElementById('aiOut');
-        out.style.display = "block";
-        out.innerHTML = "<b>Sİ:</b> Məlumatlarınız analiz edilir... Həmişə həkimlə məsləhətləşin.";
-        aiLimit.count++;
-        updateLimitUI();
+    function calculateBMI(w, h) {
+        let bki = (w / ((h / 100) * (h / 100))).toFixed(1);
+        let status, color;
+        if(bki < 18.5) { status = "Az çəki"; color = "#3498db"; }
+        else if(bki < 25) { status = "Normal"; color = "#2ecc71"; }
+        else if(bki < 30) { status = "Artıq çəki"; color = "#f1c40f"; }
+        else { status = "Obezite"; color = "#e74c3c"; }
+        return { val: bki, label: status, col: color };
     }
 
     function openPlanPage() {
-        const age = document.getElementById('age').value;
-        const height = document.getElementById('height').value;
-        const weight = document.getElementById('weight').value;
+        const h = document.getElementById('height').value;
+        const w = document.getElementById('weight').value;
         const goal = document.getElementById('goal').value;
         const allergy = document.getElementById('allergy').value || "Yoxdur";
         
-        if(!age || !height || !weight) { alert("Xanaları doldurun."); return; }
+        if(!h || !w) { alert("Lütfən boy və çəkinizi daxil edin."); return; }
         
-        let water = (weight * 0.035).toFixed(1);
+        const bki = calculateBMI(w, h);
+        let water = (w * 0.035).toFixed(1);
         let menu = {};
 
+        // 3 GÜNLÜK DƏQİQ MENYU MƏNTİQİ
         if(goal === "lose") {
             menu = {
-                g1: "<b>Səhər:</b> 2 yumurta, tərəvəz, pendir.<br><b>Nahar:</b> Toyuq (150qr), yaşıl salat.<br><b>Axşam:</b> Qatıq, kətan toxumu.",
-                g2: "<b>Səhər:</b> Yulaf (su ilə), alma.<br><b>Nahar:</b> Mərci şorbası, 1 dilim çörək.<br><b>Axşam:</b> Sobada tərəvəzlər.",
-                g3: "<b>Səhər:</b> Omlet, 5 zeytun.<br><b>Nahar:</b> Balıq və ya tuna salatı.<br><b>Axşam:</b> Qarabaşaq, çoban salatı."
+                g1: "🥣 <b>Səhər:</b> 2 qaynadılmış yumurta, 1 dilim ağ pendir (az yağlı), bol pomidor-xiyar.<br>🍲 <b>Nahar:</b> 150qr qaynadılmış toyuq, böyük yaşıl salat (limonlu).<br>🥛 <b>Axşam:</b> 1 kassa qatıq, yarım yaşıl alma.",
+                g2: "🥣 <b>Səhər:</b> 3 x.q. yulaf (su və ya az yağlı süd ilə), 2 bütöv qoz.<br>🍲 <b>Nahar:</b> 1 kassa mərci şorbası, 1 dilim tam buğda çörəyi.<br>🥗 <b>Axşam:</b> Sobada bişmiş qarışıq tərəvəzlər (yağsız).",
+                g3: "🥣 <b>Səhər:</b> 1 yumurtadan göyərtili omlet, 5 ədəd zeytun.<br>🍲 <b>Nahar:</b> 150qr sobada balıq və ya 1 qutu tuna salatı.<br>🥣 <b>Axşam:</b> 5 x.q. qaynadılmış qarabaşaq, çoban salatı."
             };
         } else if(goal === "gain") {
             menu = {
-                g1: "<b>Səhər:</b> 3 yumurta, bal, qoz.<br><b>Nahar:</b> Ətli plov, ayran.<br><b>Axşam:</b> Toyuq, püresi.",
-                g2: "<b>Səhər:</b> Fıstıq əzməsi, banan.<br><b>Nahar:</b> Lobya şorbası, düyü.<br><b>Axşam:</b> Ətli kartof yeməyi.",
-                g3: "<b>Səhər:</b> Pendirli tost, yumurta.<br><b>Nahar:</b> Izqara ət, makaron.<br><b>Axşam:</b> Ətli tərəvəz plovu."
+                g1: "🥣 <b>Səhər:</b> 3 yumurtadan kərə yağlı qayğanaq, bal, qaymaq, qoz.<br>🍲 <b>Nahar:</b> Bol ətli düyü plovu, meyvə şirəsi.<br>🍛 <b>Axşam:</b> Toyuq qızartması, kartof püresi, 1 stəkan ayran.",
+                g2: "🥣 <b>Səhər:</b> Fıstıq əzməli 2 dilim çörək, kəsmik, 1 ədəd banan.<br>🍲 <b>Nahar:</b> Ətli lobya yeməyi, yanında bulqur plovu.<br>🍛 <b>Axşam:</b> Sobada ətli kartof, süzmə qatıq.",
+                g3: "🥣 <b>Səhər:</b> Pendirli-yumurtalı tost, 1 x.q. zeytun yağı, xurma.<br>🍲 <b>Nahar:</b> Izqara mal əti, makaron, çoban salatı.<br>🍛 <b>Axşam:</b> Mərci plovu (ətli), bol tərəvəz yeməyi."
             };
         } else {
             menu = {
-                g1: "<b>Səhər:</b> Normal səhər yeməyi.<br><b>Nahar:</b> Tərəvəzli ət yeməyi.<br><b>Axşam:</b> Balıq, bol salat.",
-                g2: "<b>Səhər:</b> Kəsmik, meyvə, badam.<br><b>Nahar:</b> Toyuq, qarabaşaq.<br><b>Axşam:</b> Göyərti küküsü.",
-                g3: "<b>Səhər:</b> Omlet, zeytun.<br><b>Nahar:</b> Zeytun yağlı yemək.<br><b>Axşam:</b> Sobada toyuq."
+                g1: "🥣 <b>Səhər:</b> 2 yumurta, 5 zeytun, 1 dilim pendir, 1 dilim çörək.<br>🍲 <b>Nahar:</b> Mövsüm tərəvəz yeməyi (ətli), 1 kassa qatıq.<br>🐟 <b>Axşam:</b> Izqara balıq və ya toyuq, bol salat.",
+                g2: "🥣 <b>Səhər:</b> Kəsmik (lor), 1 x.q. bal, bir ovuc badam.<br>🍲 <b>Nahar:</b> Qarabaşaq (8 x.q.) və toyuq sote.<br>🍳 <b>Axşam:</b> Göyərti küküsü (2 yumurta ilə), qatıq.",
+                g3: "🥣 <b>Səhər:</b> 1 yumurta, pomidor-xiyar, pendir, meyvə.<br>🍲 <b>Nahar:</b> Zeytun yağlı tərəvəz yeməyi, 1 kassa düyü şorbası.<br>🍛 <b>Axşam:</b> Sobada tərəvəzli toyuq, 1 dilim çörək."
             };
         }
 
-        let allergyWarn = (allergy.toLowerCase() !== "yoxdur") ? 
-            `<div class="warning-box">⚠️ <b>Allergiya Qeydi:</b> ${allergy} nəzərə alınmalıdır!</div>` : "";
+        let allergyWarn = (allergy.toLowerCase() !== "yoxdur") ? `<div class="warning-box">⚠️ <b>Allergiya:</b> ${allergy} nəzərə alınmalıdır!</div>` : "";
 
         document.getElementById('printableArea').innerHTML = `
-            <div style="padding:15px; border:1px solid #eee; border-radius:20px;">
-                <h2 style="color:#8e44ad; text-align:center;">🌸 FeminaMind Hesabat</h2>
-                <div style="text-align:center; margin-bottom:15px;">
-                    <b>BKİ Hesablanır...</b> | <b>Su: ${water} L</b>
+            <div style="border: 1px solid #eee; border-radius: 20px; padding: 20px;">
+                <h2 style="color:var(--p); text-align:center; margin-bottom:5px;">🌸 FeminaMind Hesabat</h2>
+                <div style="text-align:center; margin-bottom:15px; font-size: 14px;">
+                    <b>BKİ:</b> ${bki.val} <span class="bki-badge" style="background:${bki.col}; color:white;">${bki.label}</span><br>
+                    <b>Su:</b> ${water} Litr | <b>Məqsəd:</b> ${goal}
                 </div>
                 ${allergyWarn}
                 <div class="plan-box">
-                    <h3>📅 3 Günlük Tam Menyu</h3>
+                    <h3 style="margin-top:0; color:var(--p);">📅 3 Günlük Tam Menyu</h3>
                     <p><b>GÜN 1:</b><br>${menu.g1}</p>
-                    <hr style="border:0; border-top:1px dashed #eee;">
+                    <hr style="border:0; border-top:1px dashed #ddd;">
                     <p><b>GÜN 2:</b><br>${menu.g2}</p>
-                    <hr style="border:0; border-top:1px dashed #eee;">
+                    <hr style="border:0; border-top:1px dashed #ddd;">
                     <p><b>GÜN 3:</b><br>${menu.g3}</p>
+                </div>
+                <div class="plan-box" style="border-left-color:var(--s); background:#fff5f9;">
+                    <h3 style="margin-top:0;">🏋️ Gündəlik Aktivlik</h3>
+                    • 30 dəqiqə sürətli yürüş.<br>
+                    • Yatmazdan 2 saat əvvəl qidalanmanı dayandırın.<br>
+                    • Hər yeməkdən əvvəl 1 stəkan su için.
                 </div>
             </div>
         `;
@@ -168,17 +138,12 @@
     }
 
     function closePlanPage() { document.getElementById('planPage').style.display = "none"; }
-
     function downloadPDF() {
         const element = document.getElementById('printableArea');
-        html2pdf().from(element).save('FeminaMind_Plan.pdf');
+        html2pdf().from(element).save('FeminaMind_Proqram.pdf');
     }
-
     function showSection(id) {
         document.getElementById('homeSection').style.display = id === 'home' ? 'block' : 'none';
-        document.getElementById('articlesSection').style.display = id === 'articles' ? 'block' : 'none';
-        document.getElementById('registerSection').style.display = id === 'register' ? 'block' : 'none';
-        document.getElementById('mainHeader').style.display = id === 'home' ? 'block' : 'none';
     }
 </script>
 </body>
