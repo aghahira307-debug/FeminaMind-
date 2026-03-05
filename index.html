@@ -91,49 +91,85 @@
         return { val: bki, label: status, col: color };
     }
 
-    function openPlanPage() {
+        function openPlanPage() {
         const h = document.getElementById('height').value;
         const w = document.getElementById('weight').value;
         const age = document.getElementById('age').value;
         const status = document.getElementById('userStatus').value;
         const goal = document.getElementById('goal').value;
+        const allergy = document.getElementById('allergy').value || "Yoxdur";
         
-        if(!h || !w || !age) return alert("Bütün sahələri daxil edin.");
+        if(!h || !w || !age) return alert("Zəhmət olmasa bütün sahələri (Boy, Çəki, Yaş) daxil edin.");
         
         const bki = calculateBMI(w, h);
         const water = (w * 0.033).toFixed(1);
 
-        // 3 GÜNLÜK MENYU MƏNTİQİ
-        const menus = {
-            young: [
-                "<b>GÜN 1:</b> Səhər: Yumurta, pendir. Nahar: Toyuq. Axşam: Qatıq.",
-                "<b>GÜN 2:</b> Səhər: Yulaf. Nahar: Balıq. Axşam: Tərəvəz yeməyi.",
-                "<b>GÜN 3:</b> Səhər: Omlet. Nahar: Ət sote. Axşam: Şorba."
-            ],
-            lactating: [
-                "<b>GÜN 1:</b> Səhər: Süd artıran yulaf. Nahar: Toyuq. Axşam: Balıq.",
-                "<b>GÜN 2:</b> Səhər: Yumurta, qoz. Nahar: Bulqur, ət. Axşam: Tərəvəz.",
-                "<b>GÜN 3:</b> Səhər: Pendir, göyərti. Nahar: Mərci. Axşam: Qatıq."
-            ]
+        // Hər statusa uyğun 3 günlük qidalanma və məşq hərəkətləri
+        const data = {
+            young: { 
+                title: "🌸 Gənc Xanım Rejimi", 
+                food: ["<b>Gün 1:</b> Səhər: Yumurta, pendir. Nahar: Toyuq sote. Axşam: Qatıq.", "<b>Gün 2:</b> Səhər: Yulaf, meyvə. Nahar: Balıq, salat. Axşam: Tərəvəz yeməyi.", "<b>Gün 3:</b> Səhər: Omlet, göyərti. Nahar: Ət sote. Axşam: Şorba."],
+                exercise: "🏃‍♀️ <b>Məşq:</b> 30 dəq. sürətli gəziş, 15 Squat (çömbəlmə), 10 Plank."
+            },
+            adult: { 
+                title: "👩 Yetkin Xanım Rejimi", 
+                food: ["<b>Gün 1:</b> Səhər: Kəsmik, qoz. Nahar: Balıq, yaşıl salat. Axşam: Tərəvəz.", "<b>Gün 2:</b> Səhər: Tam buğda çörəyi, pendir. Nahar: Mərci. Axşam: Qatıq.", "<b>Gün 3:</b> Səhər: Yulaf, darçın. Nahar: Toyuq sote. Axşam: Meyvə."],
+                exercise: "🧘 <b>Məşq:</b> 20 dəq. Yoqa və ya Pilates, 5000 addım piyada gəziş."
+            },
+            teen: { 
+                title: "🎒 Yeniyetmə Rejimi", 
+                food: ["<b>Gün 1:</b> Səhər: Bal, qaymaq, yumurta. Nahar: Ev yeməyi. Axşam: Süd, qoz.", "<b>Gün 2:</b> Səhər: Pendir, zeytun. Nahar: Ətli plov. Axşam: Meyvəli qatıq.", "<b>Gün 3:</b> Səhər: Yumurta, süd. Nahar: Toyuq şorbası. Axşam: Tərəvəz."],
+                exercise: "🏐 <b>Məşq:</b> 40 dəq. aktiv oyun (voleybol, qaçış) və ya bədən dartınma hərəkətləri."
+            },
+            pregnant: { 
+                title: "🤰 Hamiləlik Rejimi", 
+                food: ["<b>Gün 1:</b> Səhər: Pendir, yumurta. Nahar: Ətli tərəvəz. Axşam: Süd.", "<b>Gün 2:</b> Səhər: Kəsmik, meyvə. Nahar: Şorba, balıq. Axşam: Qatıq.", "<b>Gün 3:</b> Səhər: Yulaf, süd. Nahar: Toyuq filesi. Axşam: Mövsüm meyvəsi."],
+                exercise: "🚶‍♀️ <b>Məşq:</b> 20 dəq. yüngül tempdə təmiz havada gəziş və nəfəs məşqləri."
+            },
+            lactating: { 
+                title: "🍼 Süd Verən Ana Rejimi", 
+                food: ["<b>Gün 1:</b> Səhər: Süd artıran yulaf. Nahar: Toyuq, bulqur. Axşam: Balıq.", "<b>Gün 2:</b> Səhər: Yumurta, qoz. Nahar: Ət sote. Axşam: Tərəvəz şorbası.", "<b>Gün 3:</b> Səhər: Pendir, göyərti. Nahar: Mərci. Axşam: Qatıq."],
+                exercise: "🧘 <b>Məşq:</b> Çiyin və bel ağrıları üçün yüngül dartınma hərəkətləri (Stretching)."
+            },
+            menopause: { 
+                title: "🧘 Menopoz Dövrü Rejimi", 
+                food: ["<b>Gün 1:</b> Səhər: Lor pendiri, kətan toxumu. Nahar: Balıq. Axşam: Qatıq.", "<b>Gün 2:</b> Səhər: Yulaf, süd. Nahar: Zeytunyağlı lobya. Axşam: Salat.", "<b>Gün 3:</b> Səhər: Yumurta, tərəvəz. Nahar: Hindi əti. Axşam: Şorba."],
+                exercise: "🚶‍♀️ <b>Məşq:</b> 30 dəqiqəlik sürətli yürüş və sümük sağlamlığı üçün yüngül elastik lent məşqləri."
+            },
+            athlete: { 
+                title: "🏃‍♀️ İdmançı Xanım Rejimi", 
+                food: ["<b>Gün 1:</b> Səhər: 3 yumurta, fıstıq əzməsi. Nahar: Toyuq, düyü. Axşam: Kəsmik.", "<b>Gün 2:</b> Səhər: Bananlı şake, yulaf. Nahar: Balıq, qara düyü. Axşam: Ət sote.", "<b>Gün 3:</b> Səhər: Omlet, qoz. Nahar: Hindi əti, makaron. Axşam: Qatıq."],
+                exercise: "🏋️‍♀️ <b>Məşq:</b> 15 dəq. Kardio, 3 set Squat (20 təkrar), 15 Push-up (jim), 1 dəq. Plank."
+            }
         };
 
-        const sel = menus[status] || menus['young'];
+        const sel = data[status] || data['young'];
 
         document.getElementById('printableArea').innerHTML = `
             <div style="border: 2px solid #eee; border-radius: 30px; padding: 25px; background: white; text-align: center;">
-                <h2 style="color:var(--p);">FeminaMind Fərdi Plan</h2>
-                <div class="info-row"><b>Yaş:</b> ${age} | <b>Məqsəd:</b> ${goal === 'lose' ? 'Arıqlamaq' : 'Sağlamlıq'}</div>
+                <h2 style="color:var(--p); margin-bottom: 5px;">FeminaMind Fərdi Plan</h2>
+                <div class="info-row"><b>Yaş:</b> ${age} | <b>Məqsəd:</b> ${goal === 'lose' ? 'Arıqlamaq' : 'Sağlamlığı Qorumaq'}</div>
                 <div class="info-row"><b>BKİ:</b> ${bki.val} <span class="bki-badge" style="background:${bki.col}">${bki.label}</span></div>
                 <div class="info-row"><b>💧 Su Hədəfi:</b> ${water} Litr</div>
 
                 <div class="plan-box">
-                    <h4 style="margin: 0 0 10px 0; color:var(--p);">📅 3 Günlük Menyu</h4>
-                    <p style="font-size:14px; line-height: 1.8;">${sel.join('<br><br>')}</p>
+                    <h4 style="margin: 0 0 10px 0; color:var(--p); border-bottom: 1px dashed #eee; padding-bottom: 5px;">📋 3 Günlük Qidalanma</h4>
+                    <p style="font-size:13px; line-height: 1.6; text-align: left;">${sel.food.join('<br><br>')}</p>
+                </div>
+
+                <div class="plan-box" style="border-left-color: #27ae60; background: #f0fff4;">
+                    <h4 style="margin: 0 0 10px 0; color:#27ae60; border-bottom: 1px dashed #27ae60; padding-bottom: 5px;">💪 Gündəlik Məşq</h4>
+                    <p style="font-size:14px; margin:0; text-align: left;">${sel.exercise}</p>
+                </div>
+
+                <div style="margin-top:10px; font-size:12px; color:#e74c3c; background:#fff5f5; padding:5px; border-radius:10px;">
+                    ⚠️ Allergiya qeydi: ${allergy}
                 </div>
             </div>
         `;
         document.getElementById('planPage').style.display = "block";
     }
+
 
     function closePlanPage() { document.getElementById('planPage').style.display = "none"; }
     function downloadPDF() { html2pdf().from(document.getElementById('printableArea')).save('FeminaMind_Plan.pdf'); }
