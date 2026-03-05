@@ -73,12 +73,12 @@
         <h2 style="color:var(--p); text-align:center;">📚 Faydalı Məqalələr</h2>
         <hr style="border:0; border-top:1px solid #eee;">
         <div style="margin-top:15px;">
-            <h4 style="color:var(--s);">💧 Su içməyi vərdişə çevirin</h4>
-            <p style="font-size:14px;">Hər oyananda bir stəkan su içmək metabolizmanı 24% sürətləndirir.</p>
+            <h4 style="color:var(--s);">💧 Düzgün su içməyin qaydaları</h4>
+            <p style="font-size:14px;">Hər səhər oyananda 1 stəkan ilıq su içmək metabolizmanı aktivləşdirir.</p>
         </div>
         <div style="margin-top:20px; padding-top:15px; border-top:1px dashed #eee;">
-            <h4 style="color:var(--s);">🍏 Balanslı boşqab qaydası</h4>
-            <p style="font-size:14px;">Boşqabınızın yarısı tərəvəz, dörddə biri protein, dörddə biri isə sağlam karbonhidrat olmalıdır.</p>
+            <h4 style="color:var(--s);">🍏 Sağlam qidalanma</h4>
+            <p style="font-size:14px;">Mövsümi tərəvəzlər orqanizm üçün ən zəngin vitamin mənbəyidir.</p>
         </div>
     </div>
 </div>
@@ -92,7 +92,7 @@
 </div>
 
 <script>
-    // MOTİVASİYA
+    // MOTİVASİYA SİSTEMİ
     const motivations = [
         "Bu gün özün üçün bir yaxşılıq et və bir stəkan artıq su iç! ✨",
         "Sənin bədənin sənin məbədindir, ona yaxşı bax. 🌸",
@@ -101,17 +101,33 @@
     ];
     document.getElementById('motivationArea').innerText = motivations[Math.floor(Math.random() * motivations.length)];
 
-    // Sİ FUNKSİYASI
+    // Sİ FUNKSİYASI - YENİLƏNMİŞ CAVAB MƏNTİQİ
     function askSmartAI() {
-        const input = document.getElementById('aiIn').value;
-        if(!input) return;
+        const input = document.getElementById('aiIn').value.toLowerCase();
         const out = document.getElementById('aiOut');
+        if(!input) return;
+
         out.style.display = "block";
-        out.innerHTML = "<b>Sİ:</b> Məlumatlar analiz edilir... <br><br><i>Həmişə peşəkar həkim rəyinə üstünlük verin.</i>";
-        // Gələcəkdə bura real API bağlana bilər
+        out.innerHTML = "<b>Sİ Köməkçi:</b> Analiz edilir... 🤔";
+
+        setTimeout(() => {
+            let response = "";
+            if (input.includes("su")) {
+                response = "Gündəlik su miqdarı çəkinizə görə dəyişir. Suyu qurtumla içmək həzmi asanlaşdırır.";
+            } else if (input.includes("acı") || input.includes("yemək")) {
+                response = "Gecə acanda 1 kassa qatıq və ya bir ovuc çiy badam yeyə bilərsiniz. Bu toxluq hissi verir.";
+            } else if (input.includes("arıq") || input.includes("çəki")) {
+                response = "Daimi nəticə üçün şəkəri azaldın və hər gün 30 dəqiqə sürətli yürüş edin.";
+            } else if (input.includes("salam")) {
+                response = "Salam! Mən FeminaMind Sİ-yəm. Sizə sağlamlıq və qidalanma mövzusunda necə kömək edə bilərəm?";
+            } else {
+                response = "Bu mövzuda daha detallı məlumat üçün peşəkar mütəxəssislərimizə müraciət edə bilərsiniz. Balanslı qidalanma hər şeyin açarıdır.";
+            }
+            out.innerHTML = `<b>Sİ Köməkçi:</b> ${response} <br><br><small style="color:gray;">*Məlumatlar tövsiyə xarakterlidir.</small>`;
+        }, 1000);
     }
 
-    // ANALİZ VƏ MENYU
+    // ANALİZ VƏ MENYU SİSTEMİ
     function calculateBMI(w, h) {
         let bki = (w / ((h / 100) * (h / 100))).toFixed(1);
         let status, color;
