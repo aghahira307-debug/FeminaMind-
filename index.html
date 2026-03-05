@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Tam Stabil Versiya</title>
+    <title>FeminaMind | Professional Qadın Portalı</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); line-height: 1.5; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); line-height: 1.6; }
         nav { background: white; padding: 15px; display: flex; justify-content: space-around; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
         nav a { text-decoration: none; color: var(--p); font-weight: bold; cursor: pointer; font-size: 14px; }
-        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 30px 20px; text-align: center; border-radius: 0 0 40px 40px; }
-        .logo-img { width: 70px; height: 70px; border-radius: 50%; border: 3px solid white; background: white; margin-bottom: 5px; }
-        .slogan { font-size: 13px; font-weight: 300; opacity: 0.9; margin-top: 5px; font-style: italic; }
+        header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 35px 20px; text-align: center; border-radius: 0 0 40px 40px; }
+        .logo-img { width: 75px; height: 75px; border-radius: 50%; border: 3px solid white; background: white; margin-bottom: 8px; }
         .container { padding: 20px; max-width: 600px; margin: auto; }
-        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #f0f0f0; }
-        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; font-family: inherit; }
+        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); margin-bottom: 20px; border: 1px solid #f0f0f0; }
+        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; }
         .main-btn { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
-        .motivation-box { background: #fff9db; padding: 15px; border-radius: 15px; text-align: center; font-style: italic; color: #f39c12; margin-bottom: 20px; border: 1px dashed #f39c12; font-size: 14px; min-height: 45px; display: flex; align-items: center; justify-content: center; }
-        .ai-out { display:none; margin-top:15px; padding:15px; background:#f4f1ff; border-radius:12px; font-size: 14px; border-left: 4px solid var(--p); }
-        .page-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; overflow-y: auto; padding: 15px; box-sizing: border-box; }
-        .close-btn { background: var(--dark); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 15px; right: 15px; cursor: pointer; }
-        .plan-box { background: #fef1f8; padding: 18px; border-radius: 18px; border-left: 6px solid var(--p); margin-bottom: 12px; }
-        .bki-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; color: white; font-size: 12px; font-weight: bold; margin-left: 5px; }
-        .water-badge { color: #3498db; font-weight: bold; font-size: 16px; margin-top: 5px; display: block; }
+        .motivation-box { background: #fff9db; padding: 18px; border-radius: 20px; text-align: center; font-style: italic; color: #d35400; margin-bottom: 20px; border: 1px dashed #f39c12; font-size: 15px; min-height: 40px; }
+        .page-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; overflow-y: auto; padding: 15px; }
+        .close-btn { background: var(--dark); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 20px; right: 20px; cursor: pointer; }
+        .plan-box { background: #fdf7fa; padding: 20px; border-radius: 20px; border-left: 6px solid var(--p); margin-top: 15px; text-align: left; }
+        .bki-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; color: white; font-size: 12px; font-weight: bold; margin-left: 5px; }
+        .info-row { margin: 10px 0; font-size: 15px; border-bottom: 1px solid #eee; padding-bottom: 8px; text-align: center; }
     </style>
 </head>
 <body>
@@ -36,18 +34,16 @@
 
 <header id="mainHeader">
     <img src="Femina_20260303_032125_0000.png" alt="FeminaMind" class="logo-img">
-    <h1 style="margin:0; font-size: 24px;">FeminaMind</h1>
-    <div class="slogan">Ağıllı qadınlar üçün ağıllı sistem</div>
+    <h1 style="margin:0; font-size: 26px;">FeminaMind</h1>
 </header>
 
 <div class="container" id="homeSection">
     <div id="motivationArea" class="motivation-box">Yüklənir... ✨</div>
 
     <div class="card">
-        <h3>🎯 Analiz və Menyu</h3>
-        <input type="number" id="age" placeholder="Yaşınız">
-        <input type="number" id="height" placeholder="Boyunuz (sm)">
-        <input type="number" id="weight" placeholder="Çəkiniz (kq)">
+        <h3 style="margin-top:0; color:var(--p);">🎯 Sənə Özəl Analiz</h3>
+        <input type="number" id="height" placeholder="Boy (sm)">
+        <input type="number" id="weight" placeholder="Çəki (kq)">
         
         <select id="userStatus">
             <option value="teen">Yeniyetmə (12-18 yaş)</option>
@@ -59,46 +55,24 @@
             <option value="athlete">İdmançı xanım</option>
         </select>
 
-        <select id="goal">
-            <option value="lose">Arıqlamaq</option>
-            <option value="gain">Çəki almaq</option>
-            <option value="health" selected>Sağlamlıq</option>
-        </select>
-
-        <input type="text" id="allergy" placeholder="Allergiya (məs: yumurta, süd...)">
+        <input type="text" id="allergy" placeholder="Allergiya (məs: süd, yumurta...)">
         
-        <button class="main-btn" onclick="openPlanPage()">Proqramı Hazırla</button>
-    </div>
-
-    <div class="card">
-        <h3 style="color:var(--p);">✨ Sİ Köməkçi</h3>
-        <textarea id="aiIn" placeholder="Məsələn: Gecə acanda nə yeyə bilərəm?"></textarea>
-        <button style="background: var(--dark);" class="main-btn" onclick="askSmartAI()">Sual Ver</button>
-        <div id="aiOut" class="ai-out"></div>
-    </div>
-</div>
-
-<div class="container" id="articlesSection" style="display:none;">
-    <div class="card">
-        <h2 style="color:var(--p); text-align:center;">📚 Faydalı Məqalələr</h2>
-        <p>Sağlam qidalanma və statusunuza uyğun məsləhətlər burada yenilənir.</p>
+        <button class="main-btn" onclick="openPlanPage()">Proqramı Hazırla 🚀</button>
     </div>
 </div>
 
 <div id="planPage" class="page-overlay">
     <div class="close-btn" onclick="closePlanPage()">✕</div>
-    <div id="printableArea" style="max-width:550px; margin: 30px auto;"></div>
-    <button class="main-btn" style="background:#27ae60; width: 80%; display:block; margin:20px auto;" onclick="downloadPDF()">📥 PDF yüklə</button>
+    <div id="printableArea" style="max-width:500px; margin: 40px auto; padding: 10px;"></div>
+    <button class="main-btn" style="background:#27ae60; width: 85%; display:block; margin:20px auto;" onclick="downloadPDF()">📥 PDF olaraq saxla</button>
 </div>
 
 <script>
-    // 1. MOTİVASİYA MƏNTİQİ
     const motivations = [
         "Bu gün özün üçün bir yaxşılıq et və bir stəkan artıq su iç! ✨",
         "Sənin bədənin sənin məbədindir, ona yaxşı bax. 🌸",
         "Kiçik addımlar böyük nəticələrə aparır. 🚀",
-        "Özünə inam ən gözəl geyimdir. Parla! 💎",
-        "Güclü xanım, sağlam bədən! 💪"
+        "Özünə inam ən gözəl geyimdir. Parla! 💎"
     ];
 
     function updateMotivation() {
@@ -107,77 +81,56 @@
 
     function showSection(id) {
         document.getElementById('homeSection').style.display = id === 'home' ? 'block' : 'none';
-        document.getElementById('articlesSection').style.display = id === 'articles' ? 'block' : 'none';
-        document.getElementById('mainHeader').style.display = id === 'home' ? 'block' : 'none';
         if(id === 'home') updateMotivation();
     }
 
     window.onload = updateMotivation;
 
-    // 2. Sİ KÖMƏKÇİ
-    function askSmartAI() {
-        const input = document.getElementById('aiIn').value.toLowerCase();
-        const out = document.getElementById('aiOut');
-        out.style.display = "block";
-        out.innerHTML = "Analiz edilir... 🤔";
-        setTimeout(() => {
-            let res = "Balanslı qidalanma və düzgün yuxu rejimi vacibdir.";
-            if(input.includes("gecə")) res = "Gecə acanda 1 kassa qatıq və ya bir neçə çiy badam ən yaxşı seçimdir.";
-            if(input.includes("idman")) res = "Məşqdən sonra protein və mürəkkəb karbonhidrat (məs: toyuq və düyü) yemək lazımdır.";
-            out.innerHTML = `<b>Sİ Köməkçi:</b> ${res}`;
-        }, 800);
-    }
-
-    // 3. BMI HESABI
     function calculateBMI(w, h) {
         let bki = (w / ((h / 100) * (h / 100))).toFixed(1);
         let status, color;
         if(bki < 18.5) { status = "Az çəki"; color = "#3498db"; }
         else if(bki < 25) { status = "Normal"; color = "#2ecc71"; }
-        else if(bki < 30) { status = "Artıq çəki"; color = "#f1c40f"; }
+        else if(bki < 30) { status = "Artıq çəki"; color = "#f39c12"; }
         else { status = "Obezite"; color = "#e74c3c"; }
         return { val: bki, label: status, col: color };
     }
 
-    // 4. PLAN HAZIRLAMA (BÜTÜN STATUSLAR BURADADIR)
     function openPlanPage() {
         const h = document.getElementById('height').value;
         const w = document.getElementById('weight').value;
         const status = document.getElementById('userStatus').value;
-        const allergyInput = document.getElementById('allergy').value || "Yoxdur";
+        const allergy = document.getElementById('allergy').value || "Yoxdur";
         
-        if(!h || !w) return alert("Zəhmət olmasa boy və çəkinizi daxil edin.");
+        if(!h || !w) return alert("Boy və çəkini daxil edin.");
         
         const bki = calculateBMI(w, h);
-        const water = (w * 0.035).toFixed(1);
+        const water = (w * 0.033).toFixed(1);
 
-        // Hər status üçün detallı menyular
-        const allMenus = {
-            young: { title: "🌸 Gənc Xanım Rejimi", text: "<b>Səhər:</b> 2 yumurta, pendir, tərəvəz.<br><b>Nahar:</b> Toyuq sote, salat.<br><b>Axşam:</b> Qatıq, 1 meyvə." },
-            adult: { title: "👩 Yetkin Xanım Rejimi", text: "<b>Səhər:</b> Yulaf, qoz, 1 stəkan süd.<br><b>Nahar:</b> Balıq, yaşıl salat.<br><b>Axşam:</b> Tərəvəz yeməyi, qatıq." },
-            teen: { title: "🎒 Yeniyetmə Rejimi", text: "<b>Səhər:</b> Bal, pendir, yumurta, süd.<br><b>Nahar:</b> Ət yeməyi, meyvə şirəsi.<br><b>Axşam:</b> Ev yeməyi, bol salat." },
-            pregnant: { title: "🤰 Hamiləlik Rejimi", text: "<b>Səhər:</b> Kalsium üçün pendir, yumurta.<br><b>Nahar:</b> Dəmir üçün qırmızı ət, tərəvəz.<br><b>Axşam:</b> Şorba, süd və ya qatıq." },
-            lactating: { title: "🍼 Süd Verən Ana Rejimi", text: "<b>Səhər:</b> Süd artıran yulaf, yumurta.<br><b>Nahar:</b> Toyuq filesi, bulqur, su.<br><b>Axşam:</b> Balıq, bol maye." },
-            menopause: { title: "🧘 Menopoz Rejimi", text: "<b>Səhər:</b> Kəsmik, kətan toxumu, qoz.<br><b>Nahar:</b> Zeytunyağlı yeməklər.<br><b>Axşam:</b> Qatıq, yüngül salat." },
-            athlete: { title: "🏃‍♀️ İdmançı Xanım Rejimi", text: "<b>Səhər:</b> 3 yumurta ağı, fıstıq əzməsi.<br><b>Nahar:</b> Toyuq, düyü, brokkoli.<br><b>Axşam:</b> Kəsmik, meyvə." }
+        const menus = {
+            young: { title: "🌸 Gənc Xanım Rejimi", food: "<b>Səhər:</b> 2 yumurta, az yağlı pendir, tərəvəz.<br><b>Nahar:</b> Toyuq sote, 3 qaşıq bulqur, salat.<br><b>Axşam:</b> Qatıq, 1 meyvə və ya qoz." },
+            adult: { title: "👩 Yetkin Xanım Rejimi", food: "<b>Səhər:</b> Yulaf sıyığı, süd, fındıq.<br><b>Nahar:</b> Izqara balıq, bol yaşıl salat.<br><b>Axşam:</b> Tərəvəz şorbası, kəsmik." },
+            teen: { title: "🎒 Yeniyetmə Rejimi", food: "<b>Səhər:</b> Yumurta, bal, süd, qoz.<br><b>Nahar:</b> Ət yeməyi, meyvə, ayran.<br><b>Axşam:</b> Ev yeməyi, tərəvəz pürəsi." },
+            pregnant: { title: "🤰 Hamiləlik Rejimi", food: "<b>Səhər:</b> Pendir, yumurta, tam buğda çörəyi.<br><b>Nahar:</b> Qırmızı ət, mərci şorbası.<br><b>Axşam:</b> Qatıq, mövsüm meyvəsi." },
+            lactating: { title: "🍼 Süd Verən Ana Rejimi", food: "<b>Səhər:</b> Süd artıran yulaf, yumurta.<br><b>Nahar:</b> Toyuq filesi, bulqur, bol su.<br><b>Axşam:</b> Balıq, tərəvəz, meyvə." },
+            menopause: { title: "🧘 Menopoz Rejimi", food: "<b>Səhər:</b> Lor pendiri, kətan toxumu, meyvə.<br><b>Nahar:</b> Zeytun yağlı tərəvəz yeməyi.<br><b>Axşam:</b> Qatıq, yüngül salat." },
+            athlete: { title: "🏃‍♀️ İdmançı Xanım Rejimi", food: "<b>Səhər:</b> 3 yumurta ağı, fıstıq əzməsi.<br><b>Nahar:</b> Toyuq, düyü, brokkoli.<br><b>Axşam:</b> Kəsmik, banan." }
         };
 
-        const sel = allMenus[status];
+        const sel = menus[status];
 
         document.getElementById('printableArea').innerHTML = `
-            <div style="border: 2px solid #eee; border-radius: 25px; padding: 20px; text-align:center;">
-                <h2 style="color:var(--p);">FeminaMind Fərdi Plan</h2>
-                <div style="margin-bottom:15px;">
-                    <b>${sel.title}</b><br>
-                    BKİ: ${bki.val} <span class="bki-badge" style="background:${bki.col}">${bki.label}</span><br>
-                    <span class="water-badge">💧 Su Hədəfi: ${water} Litr</span>
-                </div>
-                <div class="plan-box" style="text-align:left;">
-                    <h3 style="margin:0 0 10px 0; font-size:16px;">📅 3 Günlük Menyu (Nümunə)</h3>
-                    <p style="margin:0;">${sel.text}</p>
-                </div>
-                <div style="margin-top:15px; font-size:12px; color:red; background:#fff5f5; padding:8px; border-radius:10px;">
-                    ⚠️ Allergiya qeydi: ${allergyInput}
+            <div style="border: 2px solid #eee; border-radius: 30px; padding: 25px; background: white; text-align: center;">
+                <h2 style="color:var(--p); margin-bottom: 5px;">FeminaMind Fərdi Plan</h2>
+                <div style="color:var(--s); font-weight: bold; margin-bottom: 15px;">${sel.title}</div>
+                
+                <div class="info-row"><b>BKİ:</b> ${bki.val} <span class="bki-badge" style="background:${bki.col}">${bki.label}</span></div>
+                <div class="info-row"><b>💧 Su Hədəfi:</b> ${water} Litr</div>
+                <div class="info-row" style="color:#e74c3c;"><b>⚠️ Allergiya:</b> ${allergy}</div>
+
+                <div class="plan-box">
+                    <h4 style="margin: 0 0 10px 0; color:var(--p); border-bottom: 1px dashed #eee;">📋 Gündəlik Menyu</h4>
+                    <p style="margin:0; font-size:14px; line-height: 1.8;">${sel.food}</p>
                 </div>
             </div>
         `;
