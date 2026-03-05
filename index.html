@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Sağlamlıq Portalı</title>
+    <title>FeminaMind | Ağıllı Qadınlar Üçün</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
@@ -12,15 +12,17 @@
         nav a { text-decoration: none; color: var(--p); font-weight: bold; cursor: pointer; font-size: 14px; }
         header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 30px 20px; text-align: center; border-radius: 0 0 40px 40px; }
         .logo-img { width: 70px; height: 70px; border-radius: 50%; border: 3px solid white; background: white; margin-bottom: 5px; }
+        .slogan { font-size: 13px; font-weight: 300; opacity: 0.9; margin-top: 5px; font-style: italic; }
         .container { padding: 20px; max-width: 600px; margin: auto; }
         .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #f0f0f0; }
-        input, select { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; }
+        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; font-family: inherit; }
         .main-btn { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
         .motivation-box { background: #fff9db; padding: 15px; border-radius: 15px; text-align: center; font-style: italic; color: #f39c12; margin-bottom: 20px; border: 1px dashed #f39c12; font-size: 14px; }
-        .article-item { margin-top: 20px; padding-bottom: 15px; border-bottom: 1px solid #f9f9f9; }
+        .ai-out { display:none; margin-top:15px; padding:15px; background:#f4f1ff; border-radius:12px; font-size: 14px; border-left: 4px solid var(--p); }
         .page-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; overflow-y: auto; padding: 15px; box-sizing: border-box; }
         .close-btn { background: var(--dark); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 15px; right: 15px; cursor: pointer; }
         .plan-box { background: #fef1f8; padding: 18px; border-radius: 18px; border-left: 6px solid var(--p); margin-bottom: 12px; }
+        .bki-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; color: white; font-size: 12px; font-weight: bold; margin-left: 5px; }
     </style>
 </head>
 <body>
@@ -34,12 +36,11 @@
 <header id="mainHeader">
     <img src="Femina_20260303_032125_0000.png" alt="FeminaMind" class="logo-img">
     <h1 style="margin:0; font-size: 24px;">FeminaMind</h1>
+    <div class="slogan">Ağıllı qadınlar üçün ağıllı sistem</div>
 </header>
 
 <div class="container" id="homeSection">
-    <div id="motivationArea" class="motivation-box">
-        ✨ Yüklənir...
-    </div>
+    <div id="motivationArea" class="motivation-box">✨ Yüklənir...</div>
 
     <div class="card">
         <h3>🎯 Analiz və Menyu</h3>
@@ -57,26 +58,27 @@
         
         <button class="main-btn" onclick="openPlanPage()">Proqramı Hazırla</button>
     </div>
+
+    <div class="card">
+        <h3 style="color:var(--p);">✨ Sİ Köməkçi</h3>
+        <p style="font-size:12px; color:gray; margin-bottom:10px;">İstədiyiniz sualı verin, ağıllı sistem cavablandırsın.</p>
+        <textarea id="aiIn" placeholder="Məsələn: Gecə acanda nə yeyə bilərəm?"></textarea>
+        <button style="background: var(--dark);" class="main-btn" onclick="askSmartAI()">Sual Ver</button>
+        <div id="aiOut" class="ai-out"></div>
+    </div>
 </div>
 
 <div class="container" id="articlesSection" style="display:none;">
     <div class="card">
         <h2 style="color:var(--p); text-align:center;">📚 Faydalı Məqalələr</h2>
         <hr style="border:0; border-top:1px solid #eee;">
-
-        <div class="article-item">
-            <h4 style="color:var(--s);">💧 Düzgün su içməyin 3 qaydası</h4>
-            <p style="font-size:14px;">1. Suyu birdən-birə yox, qurtumla için. 2. Yeməkdən 20 dəqiqə əvvəl için. 3. Otaq temperaturunda olmasına diqqət edin.</p>
+        <div style="margin-top:15px;">
+            <h4 style="color:var(--s);">💧 Su içməyi vərdişə çevirin</h4>
+            <p style="font-size:14px;">Hər oyananda bir stəkan su içmək metabolizmanı 24% sürətləndirir.</p>
         </div>
-
-        <div class="article-item">
-            <h4 style="color:var(--s);">🧘‍♀️ Stresslə mübarizə: 5 dəqiqə</h4>
-            <p style="font-size:14px;">Gözlərinizi yumun və yalnız nəfəsinizə fokuslanın. Bu, kortizol səviyyəsini aşağı salaraq sizi sakitləşdirəcək.</p>
-        </div>
-
-        <div class="article-item">
-            <h4 style="color:var(--s);">🥑 Sağlam qidalanma bahalıdırmı?</h4>
-            <p style="font-size:14px;">Xeyr! Mövsümi tərəvəzlər (kələm, kök) və paxlalılar ən büdcə dostu və faydalı qidalardır.</p>
+        <div style="margin-top:20px; padding-top:15px; border-top:1px dashed #eee;">
+            <h4 style="color:var(--s);">🍏 Balanslı boşqab qaydası</h4>
+            <p style="font-size:14px;">Boşqabınızın yarısı tərəvəz, dörddə biri protein, dörddə biri isə sağlam karbonhidrat olmalıdır.</p>
         </div>
     </div>
 </div>
@@ -90,22 +92,26 @@
 </div>
 
 <script>
-    // MOTİVASİYA SİSTEMİ
+    // MOTİVASİYA
     const motivations = [
         "Bu gün özün üçün bir yaxşılıq et və bir stəkan artıq su iç! ✨",
         "Sənin bədənin sənin məbədindir, ona yaxşı bax. 🌸",
-        "Kiçik addımlar böyük nəticələrə aparır. Dayanma! 🚀",
-        "Bu gün sağlam seçim etmək üçün əla gündür. 🍎",
+        "Kiçik addımlar böyük nəticələrə aparır. 🚀",
         "Özünə inam ən gözəl geyimdir. Parla! 💎"
     ];
+    document.getElementById('motivationArea').innerText = motivations[Math.floor(Math.random() * motivations.length)];
 
-    function setMotivation() {
-        const random = motivations[Math.floor(Math.random() * motivations.length)];
-        document.getElementById('motivationArea').innerText = random;
+    // Sİ FUNKSİYASI
+    function askSmartAI() {
+        const input = document.getElementById('aiIn').value;
+        if(!input) return;
+        const out = document.getElementById('aiOut');
+        out.style.display = "block";
+        out.innerHTML = "<b>Sİ:</b> Məlumatlar analiz edilir... <br><br><i>Həmişə peşəkar həkim rəyinə üstünlük verin.</i>";
+        // Gələcəkdə bura real API bağlana bilər
     }
-    setMotivation();
 
-    // MENU VƏ ANALİZ FUNKSİYALARI (ƏVVƏLKİ AĞILLI VERSİYA)
+    // ANALİZ VƏ MENYU
     function calculateBMI(w, h) {
         let bki = (w / ((h / 100) * (h / 100))).toFixed(1);
         let status, color;
@@ -143,7 +149,7 @@
             <div style="border: 1px solid #eee; border-radius: 20px; padding: 20px;">
                 <h2 style="color:var(--p); text-align:center;">🌸 FeminaMind Hesabat</h2>
                 <div style="text-align:center; margin-bottom:15px; font-size: 14px;">
-                    <b>BKİ:</b> ${bki.val} (${bki.label}) | <b>Su:</b> ${water} L
+                    <b>BKİ:</b> ${bki.val} <span class="bki-badge" style="background:${bki.col};">${bki.label}</span> | <b>Su:</b> ${water} L
                 </div>
                 <div class="plan-box">
                     <p><b>GÜN 1:</b><br>${menu.g1}</p>
@@ -161,7 +167,7 @@
         document.getElementById('mainHeader').style.display = id === 'home' ? 'block' : 'none';
     }
     function closePlanPage() { document.getElementById('planPage').style.display = "none"; }
-    function downloadPDF() { html2pdf().from(document.getElementById('printableArea')).save('FeminaMind.pdf'); }
+    function downloadPDF() { html2pdf().from(document.getElementById('printableArea')).save('FeminaMind_Plan.pdf'); }
 </script>
 </body>
 </html>
