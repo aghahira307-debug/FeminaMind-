@@ -23,6 +23,7 @@
         .close-btn { background: var(--dark); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: fixed; top: 15px; right: 15px; cursor: pointer; }
         .plan-box { background: #fef1f8; padding: 18px; border-radius: 18px; border-left: 6px solid var(--p); margin-bottom: 12px; }
         .bki-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; color: white; font-size: 12px; font-weight: bold; margin-left: 5px; }
+        .warning-box { background: #fff5f5; border-left: 6px solid #e74c3c; padding: 12px; border-radius: 12px; margin-bottom: 12px; color: #c0392b; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -73,7 +74,7 @@
         <h2 style="color:var(--p); text-align:center;">📚 Faydalı Məqalələr</h2>
         <hr style="border:0; border-top:1px solid #eee;">
         <div style="margin-top:15px;">
-            <h4 style="color:var(--s);">💧 Düzgün su içməyin qaydaları</h4>
+            <h4 style="color:var(--s);">💧 Su içməyin qaydaları</h4>
             <p style="font-size:14px;">Hər səhər oyananda 1 stəkan ilıq su içmək metabolizmanı aktivləşdirir.</p>
         </div>
         <div style="margin-top:20px; padding-top:15px; border-top:1px dashed #eee;">
@@ -92,7 +93,7 @@
 </div>
 
 <script>
-    // MOTİVASİYA SİSTEMİ
+    // MOTİVASİYA
     const motivations = [
         "Bu gün özün üçün bir yaxşılıq et və bir stəkan artıq su iç! ✨",
         "Sənin bədənin sənin məbədindir, ona yaxşı bax. 🌸",
@@ -101,27 +102,27 @@
     ];
     document.getElementById('motivationArea').innerText = motivations[Math.floor(Math.random() * motivations.length)];
 
-    // Sİ FUNKSİYASI - YENİLƏNMİŞ CAVAB MƏNTİQİ
+    // Sİ FUNKSİYASI - ARTIQ AKILLI CAVAB VERİR
     function askSmartAI() {
         const input = document.getElementById('aiIn').value.toLowerCase();
         const out = document.getElementById('aiOut');
-        if(!input) return;
+        if(!input) { alert("Lütfən bir sual yazın."); return; }
 
         out.style.display = "block";
         out.innerHTML = "<b>Sİ Köməkçi:</b> Analiz edilir... 🤔";
 
         setTimeout(() => {
             let response = "";
-            if (input.includes("su")) {
-                response = "Gündəlik su miqdarı çəkinizə görə dəyişir. Suyu qurtumla içmək həzmi asanlaşdırır.";
-            } else if (input.includes("acı") || input.includes("yemək")) {
-                response = "Gecə acanda 1 kassa qatıq və ya bir ovuc çiy badam yeyə bilərsiniz. Bu toxluq hissi verir.";
+            if (input.includes("gecə") || input.includes("acanda")) {
+                response = "Gecə acanda 1 kassa qatıq, bir ovuc çiy badam və ya çobanyastığı çayı içməyi tövsiyə edirəm. Bu tox tutur və rahat yuxu verir.";
+            } else if (input.includes("su")) {
+                response = "Gündəlik suyunuzun miqdarını proqramı hazırlayaraq öyrənə bilərsiniz. Suyu ilıq və qurtumla içmək məsləhətdir.";
             } else if (input.includes("arıq") || input.includes("çəki")) {
-                response = "Daimi nəticə üçün şəkəri azaldın və hər gün 30 dəqiqə sürətli yürüş edin.";
+                response = "Arıqlamaq üçün menyudakı 'Arıqlamaq' hədəfini seçin və şəkəri minimuma endirib gündəlik 30 dəqiqə yürüş edin.";
             } else if (input.includes("salam")) {
                 response = "Salam! Mən FeminaMind Sİ-yəm. Sizə sağlamlıq və qidalanma mövzusunda necə kömək edə bilərəm?";
             } else {
-                response = "Bu mövzuda daha detallı məlumat üçün peşəkar mütəxəssislərimizə müraciət edə bilərsiniz. Balanslı qidalanma hər şeyin açarıdır.";
+                response = "Bu maraqlı sualdır! Ümumi olaraq balanslı qidalanma və aktiv həyat tərzi hər şeyin açarıdır. Daha detallı məlumat üçün mütəxəssisə müraciət edin.";
             }
             out.innerHTML = `<b>Sİ Köməkçi:</b> ${response} <br><br><small style="color:gray;">*Məlumatlar tövsiyə xarakterlidir.</small>`;
         }, 1000);
@@ -145,21 +146,33 @@
         const allergyInput = document.getElementById('allergy').value || "Yoxdur";
         const allergy = allergyInput.toLowerCase();
         
-        if(!h || !w) { alert("Məlumatları daxil edin."); return; }
+        if(!h || !w) { alert("Boy və çəkinizi daxil edin."); return; }
         const bki = calculateBMI(w, h);
         let water = (w * 0.035).toFixed(1);
 
         const fix = (food, alt) => {
             if (allergy.includes("yumurta") && food.toLowerCase().includes("yumurta")) return alt;
             if (allergy.includes("süd") && food.toLowerCase().includes("süd")) return alt;
+            if (allergy.includes("pendir") && food.toLowerCase().includes("pendir")) return alt;
             return food;
         };
 
-        let menu = {
-            g1: `🥣 <b>Səhər:</b> ${fix("2 yumurta", "150qr kəsmik")}, tərəvəz.<br><b>Nahar:</b> Toyuq, salat.<br><b>Axşam:</b> Qatıq.`,
-            g2: `🥣 <b>Səhər:</b> ${fix("Süd ilə yulaf", "Su ilə yulaf")}, meyvə.<br><b>Nahar:</b> Mərci şorbası.<br><b>Axşam:</b> Tərəvəzlər.`,
-            g3: `🥣 <b>Səhər:</b> ${fix("Omlet", "Humus")}, zeytun.<br><b>Nahar:</b> Balıq, salat.<br><b>Axşam:</b> Qarabaşaq.`
-        };
+        let menu = {};
+        if(goal === "lose") {
+            menu = {
+                g1: `🥣 <b>Səhər:</b> ${fix("2 yumurta", "150qr kəsmik")}, ${fix("1 dilim pendir", "5 qoz")}, tərəvəz.<br><b>Nahar:</b> Toyuq sote, salat.<br><b>Axşam:</b> Qatıq, 1 alma.`,
+                g2: `🥣 <b>Səhər:</b> ${fix("Süd ilə yulaf", "Su ilə yulaf")}, badam.<br><b>Nahar:</b> Mərci şorbası.<br><b>Axşam:</b> Sobada tərəvəzlər.`,
+                g3: `🥣 <b>Səhər:</b> ${fix("Göyərtili omlet", "Noxud əzməsi")}, zeytun.<br><b>Nahar:</b> Balıq, salat.<br><b>Axşam:</b> Qarabaşaq.`
+            };
+        } else {
+            menu = {
+                g1: `🥣 <b>Səhər:</b> ${fix("2 yumurta", "Kəsmik")}, pendir, tərəvəz.<br><b>Nahar:</b> Ətli tərəvəz yeməyi.<br><b>Axşam:</b> Balıq və ya toyuq.`,
+                g2: `🥣 <b>Səhər:</b> Kəsmik, meyvə, badam.<br><b>Nahar:</b> Qarabaşaq, toyuq.<br><b>Axşam:</b> Tərəvəz küküsü, qatıq.`,
+                g3: `🥣 <b>Səhər:</b> ${fix("1 yumurta", "Qoz")}, pendir, xiyar.<br><b>Nahar:</b> Zeytun yağlı tərəvəz.<br><b>Axşam:</b> Sobada toyuq.`
+            };
+        }
+
+        let allergyWarn = (allergy !== "yoxdur") ? `<div class="warning-box">⚠️ <b>Allergiya:</b> ${allergyInput} nəzərə alınaraq menyu tənzimləndi!</div>` : "";
 
         document.getElementById('printableArea').innerHTML = `
             <div style="border: 1px solid #eee; border-radius: 20px; padding: 20px;">
@@ -167,9 +180,13 @@
                 <div style="text-align:center; margin-bottom:15px; font-size: 14px;">
                     <b>BKİ:</b> ${bki.val} <span class="bki-badge" style="background:${bki.col};">${bki.label}</span> | <b>Su:</b> ${water} L
                 </div>
+                ${allergyWarn}
                 <div class="plan-box">
+                    <h3 style="margin-top:0; color:var(--p);">📅 3 Günlük Tam Menyu</h3>
                     <p><b>GÜN 1:</b><br>${menu.g1}</p>
+                    <hr style="border:0; border-top:1px dashed #ddd;">
                     <p><b>GÜN 2:</b><br>${menu.g2}</p>
+                    <hr style="border:0; border-top:1px dashed #ddd;">
                     <p><b>GÜN 3:</b><br>${menu.g3}</p>
                 </div>
             </div>
