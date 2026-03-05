@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeminaMind | Tam Professional Versiya</title>
+    <title>FeminaMind | Ağıllı Sistem</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root { --p: #8e44ad; --s: #fd79a8; --bg: #fdfafc; --dark: #2d3436; }
@@ -13,7 +13,7 @@
         header { background: linear-gradient(135deg, var(--p), var(--s)); color: white; padding: 35px 20px; text-align: center; border-radius: 0 0 40px 40px; }
         .container { padding: 20px; max-width: 600px; margin: auto; }
         .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); margin-bottom: 20px; border: 1px solid #f0f0f0; }
-        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; }
+        input, select { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; font-family: inherit; }
         .main-btn { width: 100%; background: var(--s); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; transition: 0.3s; }
         .main-btn:active { transform: scale(0.98); }
         .motivation-box { background: #fff9db; padding: 18px; border-radius: 20px; text-align: center; font-style: italic; color: #d35400; margin-bottom: 20px; border: 1px dashed #f39c12; font-size: 15px; }
@@ -34,8 +34,10 @@
 </nav>
 
 <header id="mainHeader">
-    <h1 style="margin:0; font-size: 26px;">FeminaMind</h1>
-    <div style="font-size: 12px; opacity: 0.8;">Sizin Sağlamlıq Yolçunuz</div>
+    <h1 style="margin:0; font-size: 28px; letter-spacing: 1px;">FeminaMind</h1>
+    <div style="font-size: 14px; opacity: 0.95; font-weight: 500; margin-top: 5px;">
+        Ağıllı qadınlar üçün ağıllı sistem 🧠✨
+    </div>
 </header>
 
 <div class="container" id="homeSection">
@@ -43,7 +45,9 @@
 
     <div class="card">
         <h3 style="margin-top:0; color:var(--p);">🎯 Sənə Özəl Analiz</h3>
+        
         <input type="number" id="age" placeholder="Yaşınız">
+        
         <div style="display: flex; gap: 10px;">
             <input type="number" id="height" placeholder="Boy (sm)">
             <input type="number" id="weight" placeholder="Çəki (kq)">
@@ -103,7 +107,7 @@
         "Bu gün özün üçün bir yaxşılıq et və su iç! ✨",
         "Sənin bədənin sənin məbədindir, ona yaxşı bax. 🌸",
         "Kiçik addımlar böyük nəticələrə aparır. 🚀",
-        "Sən hər şeyin ən gözəlinə layiqsən! 💎"
+        "Ağıllı qadın hər zaman öz qayğısına qalır. 💎"
     ];
 
     function updateMotivation() {
@@ -147,7 +151,7 @@
         const goal = document.getElementById('goal').value;
         const allergy = document.getElementById('allergy').value || "Yoxdur";
         
-        if(!h || !w || !age) return alert("Bütün sahələri daxil edin.");
+        if(!h || !w || !age) return alert("Zəhmət olmasa boy, çəki və yaşınızı daxil edin.");
         
         const bki = calculateBMI(w, h);
         const water = (w * 0.033).toFixed(1);
@@ -156,27 +160,37 @@
             young: { 
                 title: "🌸 Gənc Xanım Rejimi", 
                 food: ["<b>G1:</b> Yumurta, pendir / Toyuq sote / Qatıq", "<b>G2:</b> Yulaf / Balıq, salat / Tərəvəz", "<b>G3:</b> Omlet / Ət sote / Şorba"],
-                exercise: "🏃‍♀️ 30 dəq. gəziş, 15 Squat, 10 Plank."
+                exercise: "🏃‍♀️ 30 dəq. sürətli gəziş, 15 Squat, 10 Plank."
             },
             adult: { 
                 title: "👩 Yetkin Xanım Rejimi", 
                 food: ["<b>G1:</b> Kəsmik, qoz / Balıq / Tərəvəz", "<b>G2:</b> Tam buğda çörəyi / Mərci / Qatıq", "<b>G3:</b> Yulaf / Toyuq sote / Meyvə"],
                 exercise: "🧘 20 dəq. Yoqa, 5000 addım gəziş."
             },
+            teen: { 
+                title: "🎒 Yeniyetmə Rejimi", 
+                food: ["<b>G1:</b> Bal, yumurta / Ev yeməyi / Süd", "<b>G2:</b> Pendir / Ətli plov / Meyvəli qatıq", "<b>G3:</b> Yumurta / Toyuq şorbası / Tərəvəz"],
+                exercise: "🏐 40 dəq. aktiv oyun və ya bədən dartınma."
+            },
             pregnant: { 
                 title: "🤰 Hamiləlik Rejimi", 
                 food: ["<b>G1:</b> Pendir, yumurta / Ətli tərəvəz / Süd", "<b>G2:</b> Kəsmik, meyvə / Şorba, balıq / Qatıq", "<b>G3:</b> Yulaf, süd / Toyuq / Meyvə"],
                 exercise: "🚶‍♀️ 20 dəq. yüngül gəziş və nəfəs məşqi."
             },
-            athlete: { 
-                title: "🏃‍♀️ İdmançı Xanım Rejimi", 
-                food: ["<b>G1:</b> 3 yumurta / Toyuq, düyü / Kəsmik", "<b>G2:</b> Banan, yulaf / Balıq / Ət sote", "<b>G3:</b> Omlet / Hindi əti / Qatıq"],
-                exercise: "🏋️‍♀️ 15 dəq. Kardio, 3 set Squat, 1 dəq. Plank."
-            },
             lactating: { 
                 title: "🍼 Süd Verən Ana Rejimi", 
                 food: ["<b>G1:</b> Süd artıran yulaf / Toyuq / Balıq", "<b>G2:</b> Yumurta, qoz / Ət sote / Tərəvəz", "<b>G3:</b> Pendir / Mərci / Qatıq"],
-                exercise: "🧘 Bel ağrıları üçün yüngül dartınma."
+                exercise: "🧘 Bel ağrıları üçün yüngül dartınma (Stretching)."
+            },
+            menopause: { 
+                title: "🧘 Menopoz Dövrü Rejimi", 
+                food: ["<b>G1:</b> Lor pendiri / Balıq / Qatıq", "<b>G2:</b> Yulaf, süd / Zeytunyağlı lobya / Salat", "<b>G3:</b> Yumurta / Hindi əti / Şorba"],
+                exercise: "🚶‍♀️ 30 dəq. sürətli yürüş, yüngül elastik lent məşqləri."
+            },
+            athlete: { 
+                title: "🏃‍♀️ İdmançı Xanım Rejimi", 
+                food: ["<b>G1:</b> 3 yumurta / Toyuq, düyü / Kəsmik", "<b>G2:</b> Banan, yulaf / Balıq / Ət sote", "<b>G3:</b> Omlet / Hindi əti / Qatıq"],
+                exercise: "🏋️‍♀️ 15 dəq. Kardio, 3 set Squat, 15 Push-up, 1 dəq. Plank."
             }
         };
 
@@ -184,26 +198,34 @@
 
         document.getElementById('printableArea').innerHTML = `
             <div style="border: 2px solid #eee; border-radius: 30px; padding: 25px; background: white; text-align: center;">
-                <h2 style="color:var(--p);">FeminaMind Fərdi Plan</h2>
+                <h2 style="color:var(--p); margin-bottom: 5px;">FeminaMind Fərdi Plan</h2>
                 <div class="info-row"><b>Yaş:</b> ${age} | <b>Məqsəd:</b> ${goal === 'lose' ? 'Arıqlamaq' : 'Sağlamlıq'}</div>
                 <div class="info-row"><b>BKİ:</b> ${bki.val} <span class="bki-badge" style="background:${bki.col}">${bki.label}</span></div>
                 <div class="info-row"><b>💧 Su Hədəfi:</b> ${water} Litr</div>
+                
                 <div class="plan-box">
-                    <h4 style="margin: 0 0 10px 0; color:var(--p);">📋 3 Günlük Menyu</h4>
-                    <p style="font-size:13px; line-height: 1.8;">${sel.food.join('<br>')}</p>
+                    <h4 style="margin: 0 0 10px 0; color:var(--p); border-bottom: 1px dashed #eee; padding-bottom: 5px;">📋 3 Günlük Qidalanma</h4>
+                    <p style="font-size:13px; line-height: 1.8; text-align: left;">${sel.food.join('<br><br>')}</p>
                 </div>
+
                 <div class="plan-box" style="border-left-color: #27ae60; background: #f0fff4;">
-                    <h4 style="margin: 0 0 10px 0; color:#27ae60;">💪 Gündəlik Məşq</h4>
-                    <p style="font-size:14px; margin:0;">${sel.exercise}</p>
+                    <h4 style="margin: 0 0 10px 0; color:#27ae60; border-bottom: 1px dashed #27ae60; padding-bottom: 5px;">💪 Gündəlik Məşq</h4>
+                    <p style="font-size:14px; margin:0; text-align: left;">${sel.exercise}</p>
                 </div>
-                <div style="margin-top:10px; font-size:12px; color:#e74c3c;">⚠️ Allergiya: ${allergy}</div>
+
+                <div style="margin-top:10px; font-size:12px; color:#e74c3c; background:#fff5f5; padding:5px; border-radius:10px;">
+                    ⚠️ Allergiya qeydi: ${allergy}
+                </div>
             </div>
         `;
         document.getElementById('planPage').style.display = "block";
     }
 
     function closePlanPage() { document.getElementById('planPage').style.display = "none"; }
-    function downloadPDF() { html2pdf().from(document.getElementById('printableArea')).save('FeminaMind_Plan.pdf'); }
+    function downloadPDF() { 
+        const element = document.getElementById('printableArea');
+        html2pdf().from(element).save('FeminaMind_Hesabat.pdf'); 
+    }
 </script>
 </body>
 </html>
